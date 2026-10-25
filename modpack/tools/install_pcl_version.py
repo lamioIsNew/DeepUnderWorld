@@ -15,8 +15,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 PCL = Path(r"D:\PCL\.minecraft")
-VERSION_NAME = "Deep Under World beta-2.5.0"
-DEPLOY = PCL / f"DeepUnderWorld-beta-2.5.0"
+VERSION_NAME = "Deep Under World beta-2.5.1"
+DEPLOY = PCL / f"DeepUnderWorld-beta-2.5.1"
 VERSION_DIR = PCL / "versions" / VERSION_NAME
 CACHE_JSON = ROOT / ".tmp3" / "26.3.json"
 CACHE_FABRIC = ROOT / ".tmp3" / "fabric.json"

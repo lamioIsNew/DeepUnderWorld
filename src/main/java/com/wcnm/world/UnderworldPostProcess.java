@@ -33,7 +33,7 @@ public final class UnderworldPostProcess {
 	private static final int LAKE_RADIUS = 15;
 	private static final int RIVER_LIMIT = 1000;
 	private static final int RIVER_FADE = 90;
-	private static final int RIVER_WATER_Y = 72;
+	private static final int RIVER_WATER_Y = 64;
 
 	private static final BlockState SOUL = WcnmBlocks.SOUL_BLOCK.defaultBlockState();
 	private static final BlockState ASHEN = WcnmBlocks.ASHEN_SOIL.defaultBlockState();
@@ -327,7 +327,7 @@ public final class UnderworldPostProcess {
 				continue;
 			}
 
-			int bank = (int) Math.ceil(riverHalfWidth(z) * mask) + 2;
+			int bank = (int) Math.ceil(riverHalfWidth(z) * mask) + 1;
 
 			if (centerX + bank >= minX && centerX - bank <= minX + 15) {
 				return true;
@@ -527,18 +527,24 @@ public final class UnderworldPostProcess {
 						}
 					}
 
-					for (int y = RIVER_WATER_Y + 1; y <= top; y++) {
+					for (int y = RIVER_WATER_Y + 1; y <= Math.min(top, RIVER_WATER_Y + 6); y++) {
 						editor.set(x, y, z, AIR);
 					}
+
+					// Deep terrain is not excavated all the way to the sky: the river
+					// becomes an underground/dark reach under a natural roof instead of
+					// a giant open canal.
 
 					for (int y = bedY + 1; y <= RIVER_WATER_Y; y++) {
 						editor.set(x, y, z, WATER);
 					}
 
 					editor.set(x, bedY, z, SOUL);
-				} else if (distance <= halfWidth + 2.0) {
-					// Low banks are raised into a levee; high banks are left as canyon
-					// walls.  In both cases the water is kept at RIVER_WATER_Y.
+				} else if (distance <= halfWidth + 1.0) {
+					// Keep only a single-block containment lip.  The old two-block
+					// levee turned low sections into obvious artificial canals; the
+					// lower water table lets the river run through natural tunnels or
+					// dark underground reaches instead.
 					int bankTop = RIVER_WATER_Y + 1;
 
 					if (top < bankTop) {
