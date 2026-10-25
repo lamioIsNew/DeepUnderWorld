@@ -29,6 +29,8 @@ public final class WcnmSelfTest {
 		WcnmMod.LOGGER.info("WCNM self-test: dimension loaded, seed={}", level.getChunkSource().randomState().seed());
 		level.getChunk(0, 0);
 		checkBlock(level, "spawn pad", 0, UnderworldPostProcess.SPAWN_Y, 0, WcnmBlocks.SOUL_BLOCK);
+		checkBlock(level, "spawn gate west pillar", -5, UnderworldPostProcess.SPAWN_Y + 1, -10, WcnmBlocks.YIN_STONE);
+		checkBlock(level, "spawn gate east pillar", 5, UnderworldPostProcess.SPAWN_Y + 1, -10, WcnmBlocks.YIN_STONE);
 		checkSign(level, "spawn gate", 0, UnderworldPostProcess.SPAWN_Y + 1, -5, "鬼门关");
 
 		UnderworldChunkGenerator generator = (UnderworldChunkGenerator) level.getChunkSource().getGenerator();
@@ -48,7 +50,9 @@ public final class WcnmSelfTest {
 			building.number(), building.name(), site.centerX(), site.baseY(), site.centerZ(),
 			site.centerX(), site.baseY() + 1, signZ);
 
-		checkBlock(level, "building platform", site.centerX(), site.baseY(), site.centerZ(), WcnmBlocks.YIN_STONE_BRICKS);
+		checkBlock(level, "building platform edge",
+			site.centerX() + building.width() / 2 + 1, site.baseY(), site.centerZ(),
+			WcnmBlocks.CHISELED_YIN_STONE);
 		checkBlock(level, "building pedestal", site.centerX(), site.baseY(), signZ, WcnmBlocks.SOUL_LAMP);
 		checkSign(level, "building sign", site.centerX(), site.baseY() + 1, signZ, building.name());
 

@@ -4,8 +4,10 @@ import com.wcnm.registry.WcnmBlocks;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
@@ -624,8 +626,69 @@ public final class UnderworldPostProcess {
 			}
 		}
 
-		if (minX <= 0 && minX + 15 >= 0 && minZ <= -14 && minZ + 15 >= -2) {
+		// The gate spans the chunk boundary at x = 0 (roof -7..7, pillars -6..6).
+		// It must be emitted into every chunk it touches, otherwise ChunkEditor
+		// clips away the western pillar and leaves a one-sided, floating gate.
+		if (minX <= 7 && minX + 15 >= -7 && minZ <= -5 && minZ + 15 >= -11) {
 			spawnGate(editor, terrain, randomState, seed);
+		}
+	}
+
+	/**
+	 * Repair spawn gates generated before beta-2.5.3.  The old chunk predicate only
+	 * emitted the gate into the chunk east of x=0, so worlds created by earlier builds
+	 * are left with a floating roof and a single pillar.
+	 */
+	public static void repairSpawnGate(ServerLevel level) {
+		int y = SPAWN_Y + 1;
+		int oz = -10;
+		BlockPos westPillar = new BlockPos(-5, y, oz);
+
+		if (level.getBlockState(westPillar).is(WcnmBlocks.YIN_STONE)) {
+			return;
+		}
+
+		for (int dx = 0; dx <= 1; dx++) {
+			for (int dz = 0; dz <= 1; dz++) {
+				for (int dy = 0; dy <= 8; dy++) {
+					placeGateBlock(level, -5 - dx, y + dy, oz - dz, MAIN);
+				}
+			}
+		}
+
+		for (int by = y; by < y + 9; by += 3) {
+			for (int dx = 0; dx <= 1; dx++) {
+				for (int dz = 0; dz <= 1; dz++) {
+					placeGateBlock(level, -5 - dx, by, oz - dz, Blocks.CRYING_OBSIDIAN.defaultBlockState());
+				}
+			}
+		}
+
+		placeGateBlock(level, -5, y + 9, oz, LANTERN);
+
+		for (int dx = -6; dx <= 6; dx++) {
+			placeGateBlock(level, dx, y + 9, oz, TRIM);
+			placeGateBlock(level, dx, y + 9, oz - 1, TRIM);
+		}
+
+		for (int layer = 0; layer < 3; layer++) {
+			int width = 15 - layer * 4;
+
+			for (int dx = -width / 2; dx <= width / 2; dx++) {
+				BlockState state = layer == 0 ? TRIM : MAIN;
+				placeGateBlock(level, dx, y + 10 + layer, oz, state);
+				placeGateBlock(level, dx, y + 10 + layer, oz - 1, state);
+			}
+		}
+
+		placeGateBlock(level, 0, y + 13, oz, LAMP);
+	}
+
+	private static void placeGateBlock(ServerLevel level, int x, int y, int z, BlockState state) {
+		BlockPos pos = new BlockPos(x, y, z);
+
+		if (level.getBlockState(pos).isAir()) {
+			level.setBlockAndUpdate(pos, state);
 		}
 	}
 

@@ -7,6 +7,7 @@ import com.wcnm.registry.WcnmEntities;
 import com.wcnm.registry.WcnmItems;
 import com.wcnm.network.WcnmNetworking;
 import com.wcnm.world.UnderworldAmbience;
+import com.wcnm.world.UnderworldPostProcess;
 import com.wcnm.world.WcnmSelfTest;
 import com.wcnm.world.WcnmWorldgen;
 import net.fabricmc.api.ModInitializer;
@@ -31,6 +32,12 @@ public class WcnmMod implements ModInitializer {
 		UnderworldAmbience.init();
 		WcnmNetworking.init();
 		WcnmCommands.init();
+
+		ServerLifecycleEvents.SERVER_STARTED.register(server -> {
+			if (server.getLevel(WcnmWorldgen.UNDERWORLD) != null) {
+				UnderworldPostProcess.repairSpawnGate(server.getLevel(WcnmWorldgen.UNDERWORLD));
+			}
+		});
 
 		if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
 			ServerLifecycleEvents.SERVER_STARTED.register(WcnmSelfTest::run);
