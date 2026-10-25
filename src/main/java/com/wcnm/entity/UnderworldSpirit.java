@@ -6,11 +6,11 @@ import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomFlyingGoal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
 /** Shared floating, no-gravity behaviour for the underworld's ambient spirits. */
 public abstract class UnderworldSpirit extends PathfinderMob {
@@ -28,18 +28,30 @@ public abstract class UnderworldSpirit extends PathfinderMob {
 	@Override
 	protected void registerGoals() {
 		this.goalSelector.addGoal(0, new FloatGoal(this));
-		this.goalSelector.addGoal(1, new WaterAvoidingRandomFlyingGoal(this, 0.9));
+		this.goalSelector.addGoal(1, new HoverWanderGoal(this));
 		this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 10.0F));
 		this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
 	}
 
 	@Override
-	public boolean removeWhenFarAway(double distanceToClosestPlayer) {
-		return distanceToClosestPlayer > 64.0;
+	public void travel(Vec3 movementInput) {
+		Vec3 motion = this.getDeltaMovement();
+
+		if (motion.y < -0.12) {
+			this.setDeltaMovement(motion.x, -0.12, motion.z);
+		}
+
+		super.travel(movementInput);
 	}
 
 	@Override
-	public int getMaxFallDistance() {
-		return 0;
+	public boolean causeFallDamage(double fallDistance, float damageMultiplier,
+								   net.minecraft.world.damagesource.DamageSource damageSource) {
+		return false;
+	}
+
+	@Override
+	public boolean removeWhenFarAway(double distanceToClosestPlayer) {
+		return distanceToClosestPlayer > 64.0;
 	}
 }

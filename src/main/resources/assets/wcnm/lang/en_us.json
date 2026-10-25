@@ -1,4 +1,5 @@
 {
+  "itemGroup.wcnm.underworld": "Underworld",
   "block.wcnm.soul_block": "Soul Block",
   "block.wcnm.ashen_soil": "Ashen Soil",
   "block.wcnm.soul_gravel": "Soul Gravel",
@@ -17,6 +18,10 @@
   "entity.wcnm.ghost_soldier": "Ghost Soldier",
   "entity.wcnm.underworld_hound": "Underworld Hound",
   "item.wcnm.guiding_lantern": "Guiding Lantern",
+  "item.wcnm.wandering_soul_spawn_egg": "Wandering Soul Spawn Egg",
+  "item.wcnm.ghost_wisp_spawn_egg": "Ghost Wisp Spawn Egg",
+  "item.wcnm.ghost_soldier_spawn_egg": "Ghost Soldier Spawn Egg",
+  "item.wcnm.underworld_hound_spawn_egg": "Underworld Hound Spawn Egg",
   "item.wcnm.soul_block": "Soul Block",
   "item.wcnm.ashen_soil": "Ashen Soil",
   "item.wcnm.soul_gravel": "Soul Gravel",

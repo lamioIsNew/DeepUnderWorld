@@ -26,6 +26,11 @@ DOWNLOAD_CACHE = ROOT / "modpack" / "build" / "downloads"
 TARGET_ROOT = Path(r"D:\PCL\.minecraft")
 
 
+def version_key(value: str) -> list[int]:
+    match = re.search(r"(\d+(?:\.\d+)*)$", value)
+    return [int(part) for part in match.group(1).split(".")] if match else []
+
+
 def latest_version() -> str:
     versions = []
 
@@ -38,7 +43,7 @@ def latest_version() -> str:
     if not versions:
         raise SystemExit("No DeepUnderWorld mrpack found in modpack/dist; run build_pack.py first.")
 
-    return sorted(set(versions), key=lambda value: [int(part) for part in value.split(".")])[-1]
+    return sorted(set(versions), key=version_key)[-1]
 
 
 def copy_file(source: Path, destination: Path) -> None:

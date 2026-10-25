@@ -33,7 +33,7 @@ public final class UnderworldPostProcess {
 	private static final int LAKE_RADIUS = 15;
 	private static final int RIVER_LIMIT = 1000;
 	private static final int RIVER_FADE = 90;
-	private static final int RIVER_WIDTH = 11;
+	private static final int RIVER_WATER_Y = 72;
 
 	private static final BlockState SOUL = WcnmBlocks.SOUL_BLOCK.defaultBlockState();
 	private static final BlockState ASHEN = WcnmBlocks.ASHEN_SOIL.defaultBlockState();
@@ -327,7 +327,7 @@ public final class UnderworldPostProcess {
 				continue;
 			}
 
-			int bank = Math.max(1, (int) Math.ceil(RIVER_WIDTH * mask));
+			int bank = (int) Math.ceil(riverHalfWidth(z) * mask) + 2;
 
 			if (centerX + bank >= minX && centerX - bank <= minX + 15) {
 				return true;
@@ -506,33 +506,73 @@ public final class UnderworldPostProcess {
 				continue;
 			}
 
-			int bank = Math.max(1, (int) Math.ceil(RIVER_WIDTH * mask));
-			int centerTop = terrain.getBaseHeight((int) Math.round(centerX), z, Heightmap.Types.WORLD_SURFACE, chunk, randomState) - 1;
-			int waterLevel = centerTop - 2;
+			double halfWidth = riverHalfWidth(z) * mask;
+			int bank = (int) Math.ceil(halfWidth) + 2;
 
-			for (int x = Math.max(minX, (int) Math.floor(centerX) - bank - 1);
-				 x <= Math.min(minX + 15, (int) Math.ceil(centerX) + bank + 1); x++) {
+			for (int x = Math.max(minX, (int) Math.floor(centerX) - bank);
+				 x <= Math.min(minX + 15, (int) Math.ceil(centerX) + bank); x++) {
 				double distance = Math.abs(x - centerX);
-
-				if (distance > bank) {
-					continue;
-				}
-
-				double factor = 1.0 - distance / bank;
-				int depth = 1 + (int) (factor * 3.0 * mask);
 				int top = terrain.getBaseHeight(x, z, Heightmap.Types.WORLD_SURFACE, chunk, randomState) - 1;
 
-				for (int y = waterLevel + 1; y <= top; y++) {
-					editor.set(x, y, z, AIR);
-				}
+				if (distance <= halfWidth) {
+					// The channel is carved to one global water plane.  If the terrain is
+					// higher, this becomes a canyon; if it is lower, the bed is built up
+					// into an elevated channel.
+					int depth = 1 + (int) Math.round((1.0 - distance / Math.max(1.0, halfWidth)) * 3.0);
+					int bedY = RIVER_WATER_Y - depth;
 
-				for (int y = waterLevel - depth + 1; y <= waterLevel; y++) {
-					editor.set(x, y, z, WATER);
-				}
+					if (top < bedY) {
+						for (int y = top + 1; y <= bedY; y++) {
+							editor.set(x, y, z, SOUL);
+						}
+					}
 
-				editor.set(x, waterLevel - depth, z, SOUL);
+					for (int y = RIVER_WATER_Y + 1; y <= top; y++) {
+						editor.set(x, y, z, AIR);
+					}
+
+					for (int y = bedY + 1; y <= RIVER_WATER_Y; y++) {
+						editor.set(x, y, z, WATER);
+					}
+
+					editor.set(x, bedY, z, SOUL);
+				} else if (distance <= halfWidth + 2.0) {
+					// Low banks are raised into a levee; high banks are left as canyon
+					// walls.  In both cases the water is kept at RIVER_WATER_Y.
+					int bankTop = RIVER_WATER_Y + 1;
+
+					if (top < bankTop) {
+						for (int y = top + 1; y <= bankTop; y++) {
+							editor.set(x, y, z, SOUL);
+						}
+					}
+				}
+			}
+
+			// When the width tapers to nothing, fill the last channel cell with soul
+			// instead of water.  This seals the river end without a vertical water wall.
+			if (halfWidth < 1.0) {
+				for (int x = (int) Math.floor(centerX) - 3; x <= (int) Math.ceil(centerX) + 3; x++) {
+					int top = terrain.getBaseHeight(x, z, Heightmap.Types.WORLD_SURFACE, chunk, randomState) - 1;
+
+					for (int y = top + 1; y <= RIVER_WATER_Y; y++) {
+						editor.set(x, y, z, SOUL);
+					}
+				}
 			}
 		}
+	}
+
+	/**
+	 * Smoothly varying half-width.  The three sine terms have different periods so the
+	 * river pinches and widens without per-column noise or hard steps.
+	 */
+	private static double riverHalfWidth(int z) {
+		double width = 8.5
+			+ 2.6 * Math.sin(z / 83.0)
+			+ 1.7 * Math.sin(z / 211.0 + 1.3)
+			+ 1.1 * Math.sin(z / 37.0 + 0.7);
+		return Math.max(4.0, Math.min(13.0, width));
 	}
 
 	public static double riverCenterX(int z) {

@@ -61,14 +61,14 @@ public final class WcnmSelfTest {
 		level.getChunk(riverX >> 4, 0);
 		int riverWaterY = -999;
 
-		for (int y = -60; y <= 300; y++) {
+		for (int y = 300; y >= -60; y--) {
 			if (level.getBlockState(new BlockPos(riverX, y, 0)).is(net.minecraft.world.level.block.Blocks.WATER)) {
 				riverWaterY = y;
 				break;
 			}
 		}
 
-		WcnmMod.LOGGER.info("WCNM self-test: river sample at ({}, 0) waterY={}", riverX, riverWaterY);
+		WcnmMod.LOGGER.info("WCNM self-test: river surface waterY at ({}, 0)={}", riverX, riverWaterY);
 
 		int soul = 0;
 		int ashen = 0;

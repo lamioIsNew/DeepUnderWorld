@@ -4,12 +4,17 @@ import com.wcnm.WcnmMod;
 import com.wcnm.item.GuidingLanternItem;
 import java.util.function.Function;
 import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.world.level.block.Block;
 
 public final class WcnmItems {
@@ -26,6 +31,15 @@ public final class WcnmItems {
 	public static final Item SOUL_STONE = blockItem("soul_stone", WcnmBlocks.SOUL_STONE);
 	public static final Item SOUL_GRASS = blockItem("soul_grass", WcnmBlocks.SOUL_GRASS);
 
+	public static final Item WANDERING_SOUL_SPAWN_EGG =
+		spawnEgg("wandering_soul_spawn_egg", WcnmEntities.WANDERING_SOUL);
+	public static final Item GHOST_WISP_SPAWN_EGG =
+		spawnEgg("ghost_wisp_spawn_egg", WcnmEntities.GHOST_WISP);
+	public static final Item GHOST_SOLDIER_SPAWN_EGG =
+		spawnEgg("ghost_soldier_spawn_egg", WcnmEntities.GHOST_SOLDIER);
+	public static final Item UNDERWORLD_HOUND_SPAWN_EGG =
+		spawnEgg("underworld_hound_spawn_egg", WcnmEntities.UNDERWORLD_HOUND);
+
 	/** 引魂灯：右键在冥界与主世界之间往返。 */
 	public static final Item GUIDING_LANTERN = register(
 		"guiding_lantern",
@@ -41,6 +55,11 @@ public final class WcnmItems {
 
 	private static Item blockItem(String name, Block block) {
 		return register(name, properties -> new BlockItem(block, properties.useBlockDescriptionPrefix()));
+	}
+
+	private static Item spawnEgg(String name, EntityType<?> type) {
+		return register(name, properties -> new SpawnEggItem(properties
+			.component(DataComponents.ENTITY_DATA, TypedEntityData.of(type, new CompoundTag()))));
 	}
 
 	private static Item register(String name, Function<Item.Properties, Item> factory) {

@@ -270,6 +270,25 @@ def make_soul_grass() -> Image.Image:
     return im
 
 
+def make_spawn_egg(base, spot, highlight) -> Image.Image:
+    im = img(16, 16, CLEAR)
+    rows = {
+        2: 1, 3: 2, 4: 3, 5: 3, 6: 3, 7: 3,
+        8: 3, 9: 3, 10: 3, 11: 2, 12: 2, 13: 1, 14: 1,
+    }
+    for y, half in rows.items():
+        for x in range(8 - half, 8 + half):
+            shade = 1.0 - max(0.0, (y - 2) / 20.0)
+            c = tuple(int(v * shade) for v in base[:3]) + (255,)
+            px(im, x, y, c)
+    for x, y in [(8, 3), (9, 3), (7, 4), (8, 4)]:
+        px(im, x, y, highlight)
+    for x, y in [(6, 6), (7, 6), (10, 8), (9, 8), (7, 10), (8, 11), (10, 11)]:
+        px(im, x, y, spot)
+    return im
+
+
+
 def make_ghost_soldier_texture() -> Image.Image:
     rng = random.Random(0x501D1E)
     base = (48, 64, 74, 255)
@@ -678,6 +697,10 @@ def write_models() -> None:
         "bianhua": "wcnm:item/bianhua",
         "soul_grass": "wcnm:item/soul_grass",
         "guiding_lantern": "wcnm:item/guiding_lantern",
+        "wandering_soul_spawn_egg": "wcnm:item/wandering_soul_spawn_egg",
+        "ghost_wisp_spawn_egg": "wcnm:item/ghost_wisp_spawn_egg",
+        "ghost_soldier_spawn_egg": "wcnm:item/ghost_soldier_spawn_egg",
+        "underworld_hound_spawn_egg": "wcnm:item/underworld_hound_spawn_egg",
     }
 
     for name, model in item_definitions.items():
@@ -733,7 +756,19 @@ def write_models() -> None:
         "textures": {"layer0": "wcnm:item/guiding_lantern"},
     })
 
+    for name in (
+        "wandering_soul_spawn_egg",
+        "ghost_wisp_spawn_egg",
+        "ghost_soldier_spawn_egg",
+        "underworld_hound_spawn_egg",
+    ):
+        write_json(ASSETS / "models" / "item" / f"{name}.json", {
+            "parent": "minecraft:item/generated",
+            "textures": {"layer0": f"wcnm:item/{name}"},
+        })
+
     write_json(ASSETS / "lang" / "zh_cn.json", {
+        "itemGroup.wcnm.underworld": "冥界",
         "block.wcnm.soul_block": "灵魂块",
         "block.wcnm.ashen_soil": "冥土",
         "block.wcnm.soul_gravel": "魂砂砾",
@@ -752,6 +787,10 @@ def write_models() -> None:
         "entity.wcnm.ghost_soldier": "阴兵",
         "entity.wcnm.underworld_hound": "冥犬",
         "item.wcnm.guiding_lantern": "引魂灯",
+        "item.wcnm.wandering_soul_spawn_egg": "游魂刷怪蛋",
+        "item.wcnm.ghost_wisp_spawn_egg": "鬼火刷怪蛋",
+        "item.wcnm.ghost_soldier_spawn_egg": "阴兵刷怪蛋",
+        "item.wcnm.underworld_hound_spawn_egg": "冥犬刷怪蛋",
         "item.wcnm.soul_block": "灵魂块",
         "item.wcnm.ashen_soil": "冥土",
         "item.wcnm.soul_gravel": "魂砂砾",
@@ -766,6 +805,7 @@ def write_models() -> None:
         "item.wcnm.bianhua": "彼岸花",
     })
     write_json(ASSETS / "lang" / "en_us.json", {
+        "itemGroup.wcnm.underworld": "Underworld",
         "block.wcnm.soul_block": "Soul Block",
         "block.wcnm.ashen_soil": "Ashen Soil",
         "block.wcnm.soul_gravel": "Soul Gravel",
@@ -784,6 +824,10 @@ def write_models() -> None:
         "entity.wcnm.ghost_soldier": "Ghost Soldier",
         "entity.wcnm.underworld_hound": "Underworld Hound",
         "item.wcnm.guiding_lantern": "Guiding Lantern",
+        "item.wcnm.wandering_soul_spawn_egg": "Wandering Soul Spawn Egg",
+        "item.wcnm.ghost_wisp_spawn_egg": "Ghost Wisp Spawn Egg",
+        "item.wcnm.ghost_soldier_spawn_egg": "Ghost Soldier Spawn Egg",
+        "item.wcnm.underworld_hound_spawn_egg": "Underworld Hound Spawn Egg",
         "item.wcnm.soul_block": "Soul Block",
         "item.wcnm.ashen_soil": "Ashen Soil",
         "item.wcnm.soul_gravel": "Soul Gravel",
@@ -842,6 +886,14 @@ def main() -> None:
     save(make_ghost_wisp_texture(), entity_tex / "ghost_wisp.png")
     save(make_ghost_soldier_texture(), entity_tex / "ghost_soldier.png")
     save(make_underworld_hound_texture(), entity_tex / "underworld_hound.png")
+    save(make_spawn_egg((112, 150, 148, 255), (30, 52, 54, 255), (176, 226, 214, 255)),
+        item_tex / "wandering_soul_spawn_egg.png")
+    save(make_spawn_egg((64, 180, 170, 255), (18, 70, 66, 255), (190, 255, 240, 255)),
+        item_tex / "ghost_wisp_spawn_egg.png")
+    save(make_spawn_egg((70, 82, 86, 255), (28, 30, 34, 255), (130, 150, 146, 255)),
+        item_tex / "ghost_soldier_spawn_egg.png")
+    save(make_spawn_egg((78, 54, 44, 255), (30, 22, 20, 255), (150, 104, 82, 255)),
+        item_tex / "underworld_hound_spawn_egg.png")
 
     print(f"assets  -> {ASSETS}")
 
