@@ -1,0 +1,38 @@
+{
+	"schemaVersion": 1,
+	"id": "wcnm",
+	"version": "${version}",
+	"name": "阴森冥界 (The Dark UnderWorld)",
+	"description": "国风冥界维度：WFC + 自研 Perlin 耦合地形、50 种随机冥筑、发光告示牌与国风材质。",
+	"authors": [
+		"WCNM"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/wcnm/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.wcnm.WcnmMod"
+		],
+		"client": [
+			"com.wcnm.client.WcnmModClient"
+		]
+	},
+	"mixins": [
+		"wcnm.mixins.json",
+		{
+			"config": "wcnm.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.3",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}

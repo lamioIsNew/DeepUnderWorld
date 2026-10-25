@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "G": "minecraft:glowstone_dust",
+    "S": "minecraft:soul_torch",
+    "Y": "wcnm:yin_stone"
+  },
+  "pattern": [
+    " G ",
+    "GSG",
+    "YYY"
+  ],
+  "result": {
+    "id": "wcnm:soul_lamp",
+    "count": 2
+  }
+}

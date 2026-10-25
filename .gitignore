@@ -1,0 +1,63 @@
+# gradle
+
+.gradle/
+build/
+out/
+classes/
+
+# eclipse
+
+*.launch
+
+# idea
+
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# vscode
+
+.settings/
+.vscode/
+bin/
+.classpath
+.project
+
+# macos
+
+*.DS_Store
+
+# fabric
+
+run/
+
+# generated modpack artifacts
+
+modpack/build/
+modpack/dist/
+.tmp3/
+untitled/
+
+# agent instructions and agent-local task/state files
+
+AGENT.md
+AGENTS.md
+CLAUDE.md
+GEMINI.md
+.cursorrules
+.windsurfrules
+.github/copilot-instructions.md
+.claude/
+.opencode/
+.codex/
+.continue/
+.aider*
+.specs/
+
+# java
+
+hs_err_*.log
+replay_*.log
+*.hprof
+*.jfr

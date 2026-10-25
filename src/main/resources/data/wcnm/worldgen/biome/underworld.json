@@ -1,0 +1,101 @@
+{
+  "attributes": {
+    "minecraft:audio/ambient_sounds": {
+      "additions": {
+        "sound": "minecraft:ambient.cave",
+        "tick_chance": 0.02
+      },
+      "mood": {
+        "block_search_extent": 8,
+        "offset": 2.0,
+        "sound": "minecraft:ambient.cave",
+        "tick_delay": 3000
+      }
+    },
+    "minecraft:gameplay/natural_mob_spawns": {
+      "argument": {
+        "spawn_costs": {},
+        "spawns_by_category": {
+          "ambient": [
+            {
+              "type": "minecraft:bat",
+              "count": 4,
+              "weight": 10
+            }
+          ],
+          "axolotls": [],
+          "creature": [],
+          "misc": [],
+          "monster": [
+            {
+              "type": "minecraft:zombie",
+              "count": 4,
+              "weight": 100
+            },
+            {
+              "type": "minecraft:skeleton",
+              "count": 4,
+              "weight": 100
+            },
+            {
+              "type": "minecraft:husk",
+              "count": 4,
+              "weight": 60
+            },
+            {
+              "type": "minecraft:enderman",
+              "count": 2,
+              "weight": 20
+            },
+            {
+              "type": "minecraft:witch",
+              "count": 2,
+              "weight": 10
+            }
+          ],
+          "underground_water_creature": [],
+          "water_ambient": [],
+          "water_creature": []
+        }
+      },
+      "modifier": "overlay"
+    },
+    "minecraft:visual/ambient_light_color": "#1a0c14",
+    "minecraft:visual/ambient_particles": {
+      "argument": [
+        {
+          "particle": {
+            "type": "minecraft:ash"
+          },
+          "probability": 0.02
+        }
+      ],
+      "modifier": "append"
+    },
+    "minecraft:visual/fog_color": "#14060a",
+    "minecraft:visual/sky_color": "#05010a"
+  },
+  "carvers": [],
+  "downfall": 0.0,
+  "effects": {
+    "fog_color": "#14060a",
+    "sky_color": "#05010a",
+    "water_color": "#5c0a12",
+    "water_fog_color": "#2a0508"
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    []
+  ],
+  "has_precipitation": false,
+  "temperature": 0.5
+}

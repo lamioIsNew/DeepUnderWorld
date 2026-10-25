@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": "minecraft:crying_obsidian",
+    "L": "minecraft:soul_lantern"
+  },
+  "pattern": [
+    " C ",
+    "CLC",
+    " C "
+  ],
+  "result": {
+    "id": "wcnm:guiding_lantern"
+  }
+}

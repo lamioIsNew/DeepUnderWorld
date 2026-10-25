@@ -1,0 +1,15 @@
+{
+	"required": true,
+	"package": "com.wcnm.client.mixin",
+	"compatibilityLevel": "JAVA_25",
+	"client": [
+		"WcnmClientMixin",
+		"FogRendererMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}

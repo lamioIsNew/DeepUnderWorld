@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "wcnm:yin_stone_bricks",
+    "minecraft:crying_obsidian"
+  ],
+  "result": {
+    "id": "wcnm:chiseled_yin_stone",
+    "count": 2
+  }
+}

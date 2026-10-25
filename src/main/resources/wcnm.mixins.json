@@ -1,0 +1,15 @@
+{
+	"required": true,
+	"package": "com.wcnm.mixin",
+	"compatibilityLevel": "JAVA_25",
+	"mixins": [
+		"WcnmMixin",
+		"SignBlockEntityAccessor"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}

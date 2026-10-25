@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:soul_sand",
+    "minecraft:soul_soil",
+    "wcnm:yin_stone"
+  ],
+  "result": {
+    "id": "wcnm:soul_block",
+    "count": 2
+  }
+}

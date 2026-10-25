@@ -1,0 +1,11 @@
+{
+  "type": "wcnm:underworld",
+  "generator": {
+    "type": "wcnm:underworld",
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "wcnm:underworld"
+    },
+    "settings": "wcnm:underworld"
+  }
+}
