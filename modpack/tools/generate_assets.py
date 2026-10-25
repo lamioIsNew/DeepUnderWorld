@@ -192,62 +192,63 @@ def make_ashen_soil() -> Image.Image:
 
 def make_soul_gravel() -> Image.Image:
     rng = random.Random(0x6A4E1)
-    im = img(16, 16, (31, 26, 35, 255))
+    im = img(16, 16, (38, 35, 40, 255))
     for _ in range(75):
         px(im, rng.randrange(16), rng.randrange(16),
-           rnd_color(rng, [(38, 32, 43, 255), (25, 21, 29, 255), (47, 39, 53, 255), (20, 17, 24, 255)]))
+           rnd_color(rng, [(45, 42, 48, 255), (32, 29, 34, 255), (54, 50, 58, 255), (27, 24, 29, 255)]))
     for _ in range(12):
         x, y = rng.randrange(15), rng.randrange(15)
-        c = rnd_color(rng, [(62, 52, 71, 255), (46, 39, 54, 255), (74, 62, 84, 255)])
+        c = rnd_color(rng, [(68, 63, 73, 255), (52, 48, 57, 255), (79, 72, 84, 255)])
         px(im, x, y, c)
         px(im, x + 1, y, c)
-        px(im, x, y + 1, (22, 18, 27, 255))
+        px(im, x, y + 1, (29, 26, 31, 255))
     for _ in range(4):
-        px(im, rng.randrange(16), rng.randrange(16), (92, 180, 170, 255))
+        px(im, rng.randrange(16), rng.randrange(16), (92, 128, 118, 255))
     return im
 
 
 def make_bone_soil() -> Image.Image:
     rng = random.Random(0xB0E5)
-    im = img(16, 16, (37, 33, 31, 255))
+    im = img(16, 16, (43, 40, 36, 255))
     for _ in range(80):
         px(im, rng.randrange(16), rng.randrange(16),
-           rnd_color(rng, [(44, 39, 36, 255), (30, 27, 26, 255), (52, 46, 41, 255)]))
+           rnd_color(rng, [(50, 46, 41, 255), (35, 32, 29, 255), (57, 52, 46, 255)]))
     for _ in range(18):
         x, y = rng.randrange(16), rng.randrange(16)
         length = rng.randrange(1, 4)
         horizontal = rng.random() < 0.5
         for i in range(length):
-            px(im, x + (i if horizontal else 0), y + (0 if horizontal else i), rnd_color(rng, [BONE, (172, 160, 140, 255)]))
+            px(im, x + (i if horizontal else 0), y + (0 if horizontal else i),
+               rnd_color(rng, [(160, 150, 132, 255), (132, 122, 105, 255)]))
     for _ in range(5):
-        px(im, rng.randrange(16), rng.randrange(16), (72, 64, 55, 255))
+        px(im, rng.randrange(16), rng.randrange(16), (65, 59, 51, 255))
     return im
 
 
 def make_blood_moss() -> Image.Image:
     rng = random.Random(0xB100D)
-    im = img(16, 16, (39, 12, 17, 255))
+    im = img(16, 16, (42, 27, 30, 255))
     for _ in range(85):
         px(im, rng.randrange(16), rng.randrange(16),
-           rnd_color(rng, [(52, 15, 21, 255), (31, 8, 13, 255), (68, 18, 26, 255), (24, 7, 11, 255)]))
+           rnd_color(rng, [(55, 36, 39, 255), (34, 22, 25, 255), (69, 44, 45, 255), (28, 18, 21, 255)]))
     for _ in range(8):
         x, y = rng.randrange(16), rng.randrange(16)
         for _ in range(rng.randrange(3, 7)):
-            px(im, x, y, rnd_color(rng, [(96, 19, 30, 255), (126, 27, 39, 255), (73, 14, 23, 255)]))
+            px(im, x, y, rnd_color(rng, [(82, 48, 50, 255), (104, 60, 62, 255), (61, 38, 40, 255)]))
             x = (x + rng.choice([-1, 0, 1])) % 16
             y = (y + rng.choice([-1, 0, 1])) % 16
     for _ in range(3):
-        px(im, rng.randrange(16), rng.randrange(16), (96, 220, 190, 255))
+        px(im, rng.randrange(16), rng.randrange(16), (96, 130, 118, 255))
     return im
 
 
 def make_soul_stone() -> Image.Image:
     rng = random.Random(0x50A15)
-    im = stone_base(rng, (24, 24, 34))
+    im = stone_base(rng, (28, 29, 35))
     for _ in range(5):
         x, y = rng.randrange(16), rng.randrange(16)
         for _ in range(rng.randrange(4, 8)):
-            px(im, x, y, rnd_color(rng, [CYAN2, (46, 150, 140, 255), (102, 238, 220, 255)]))
+            px(im, x, y, rnd_color(rng, [(44, 94, 90, 255), (52, 116, 108, 255), (92, 166, 150, 255)]))
             x = (x + rng.choice([-1, 0, 1])) % 16
             y = (y + rng.choice([-1, 0, 1])) % 16
     return im
@@ -260,12 +261,12 @@ def make_soul_grass() -> Image.Image:
     for x, top in blades:
         lean = rng.choice([-1, 0, 1])
         for y in range(15, top - 1, -1):
-            shade = (40 + (15 - y) * 3, 90 + (15 - y) * 5, 78 + (15 - y) * 4, 255)
+            shade = (42 + (15 - y) * 2, 76 + (15 - y) * 4, 68 + (15 - y) * 3, 255)
             px(im, x, y, shade)
             if y % 3 == 0:
-                px(im, (x + lean) % 16, y, (26, 62, 56, 255))
+                px(im, (x + lean) % 16, y, (30, 52, 48, 255))
         if top < 10:
-            px(im, (x + lean) % 16, top - 1, (120, 230, 210, 255))
+            px(im, (x + lean) % 16, top - 1, (108, 170, 156, 255))
     return im
 
 
@@ -439,6 +440,67 @@ def make_guiding_lantern() -> Image.Image:
         px(im, 6, y, (210, 190, 140, 255))
     px(im, 6, 7, RED2)
     px(im, 6, 9, RED2)
+    return im
+
+
+def make_guiding_lantern_block() -> Image.Image:
+    """16x16 block texture laid out for vanilla's template_lantern UV regions."""
+    im = img(16, 16, CLEAR)
+    metal = (42, 34, 30, 255)
+    metal_hi = (100, 76, 48, 255)
+    bronze = (142, 102, 56, 255)
+    glass = (10, 34, 36, 255)
+    glow = (36, 134, 124, 255)
+    bright = (156, 238, 218, 255)
+
+    # Main side panel: x0..5, y2..8.
+    for x in range(0, 6):
+        for y in range(2, 9):
+            px(im, x, y, metal)
+    for x in range(0, 6):
+        px(im, x, 2, metal_hi)
+        px(im, x, 8, bronze)
+    for y in range(2, 9):
+        px(im, 0, y, metal_hi)
+        px(im, 5, y, bronze)
+    for x in range(1, 5):
+        for y in range(3, 8):
+            px(im, x, y, glass)
+    for x, y in [(2, 4), (3, 4), (2, 5), (3, 5), (2, 6), (3, 6)]:
+        px(im, x, y, glow)
+    for x, y in [(2, 5), (3, 5)]:
+        px(im, x, y, bright)
+
+    # Top/bottom face: x0..5, y9..14.
+    for x in range(0, 6):
+        for y in range(9, 15):
+            px(im, x, y, metal)
+    for x in range(0, 6):
+        px(im, x, 9, metal_hi)
+        px(im, x, 10, bronze)
+        px(im, x, 14, bronze)
+    for x in range(1, 5):
+        for y in range(11, 14):
+            px(im, x, y, glass)
+    for x, y in [(2, 12), (3, 12)]:
+        px(im, x, y, glow)
+
+    # Cap: x1..4, y0..1.
+    for x in range(1, 5):
+        px(im, x, 0, bronze)
+        px(im, x, 1, metal_hi)
+    for y in range(10, 14):
+        px(im, 1, y, bronze)
+        px(im, 4, y, bronze)
+
+    # Hanging chain / handle: x11..13.
+    for y in range(0, 15):
+        if y in (4, 5, 6) or y in (13, 14):
+            continue
+        px(im, 12, y, bronze)
+        if y % 2 == 0:
+            px(im, 11, y, metal_hi)
+            px(im, 13, y, metal_hi)
     return im
 
 
@@ -775,7 +837,7 @@ def main() -> None:
     save(make_soul_lamp(), block_tex / "soul_lamp.png")
     save(make_bianhua(), block_tex / "bianhua.png")
     save(make_guiding_lantern(), item_tex / "guiding_lantern.png")
-    save(make_guiding_lantern(), block_tex / "guiding_lantern.png")
+    save(make_guiding_lantern_block(), block_tex / "guiding_lantern.png")
     save(make_wandering_soul_texture(), entity_tex / "wandering_soul.png")
     save(make_ghost_wisp_texture(), entity_tex / "ghost_wisp.png")
     save(make_ghost_soldier_texture(), entity_tex / "ghost_soldier.png")

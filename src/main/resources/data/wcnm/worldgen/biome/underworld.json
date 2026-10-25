@@ -60,7 +60,7 @@
       },
       "modifier": "overlay"
     },
-    "minecraft:visual/ambient_light_color": "#3a2a38",
+    "minecraft:visual/ambient_light_color": "#463a44",
     "minecraft:visual/ambient_particles": {
       "argument": [
         {
@@ -72,16 +72,16 @@
       ],
       "modifier": "append"
     },
-    "minecraft:visual/fog_color": "#24101a",
-    "minecraft:visual/sky_color": "#0b0712"
+    "minecraft:visual/fog_color": "#2a1c24",
+    "minecraft:visual/sky_color": "#12101a"
   },
   "carvers": [],
   "downfall": 0.0,
   "effects": {
-    "fog_color": "#24101a",
-    "sky_color": "#0b0712",
-    "water_color": "#5c0a12",
-    "water_fog_color": "#2a0508"
+    "fog_color": "#2a1c24",
+    "sky_color": "#12101a",
+    "water_color": "#1f3f42",
+    "water_fog_color": "#10282a"
   },
   "features": [
     [],

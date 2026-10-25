@@ -74,7 +74,7 @@ public final class WcnmBlocks {
 		"soul_block",
 		Block::new,
 		BlockBehaviour.Properties.of()
-			.mapColor(MapColor.COLOR_PURPLE)
+			.mapColor(MapColor.TERRACOTTA_BROWN)
 			.strength(0.6F)
 			.sound(SoundType.SOUL_SAND)
 	);
@@ -97,6 +97,7 @@ public final class WcnmBlocks {
 		"ashen_soil",
 		Block::new,
 		baseProperties()
+			.mapColor(MapColor.TERRACOTTA_GRAY)
 			.strength(0.55F)
 			.sound(SoundType.SOUL_SAND)
 	);
@@ -106,7 +107,7 @@ public final class WcnmBlocks {
 		"soul_gravel",
 		Block::new,
 		BlockBehaviour.Properties.of()
-			.mapColor(MapColor.COLOR_PURPLE)
+			.mapColor(MapColor.TERRACOTTA_GRAY)
 			.strength(0.65F)
 			.sound(SoundType.GRAVEL)
 	);
@@ -116,7 +117,7 @@ public final class WcnmBlocks {
 		"bone_soil",
 		Block::new,
 		BlockBehaviour.Properties.of()
-			.mapColor(MapColor.COLOR_LIGHT_GRAY)
+			.mapColor(MapColor.TERRACOTTA_LIGHT_GRAY)
 			.strength(0.6F)
 			.sound(SoundType.SOUL_SAND)
 	);
@@ -126,7 +127,7 @@ public final class WcnmBlocks {
 		"blood_moss",
 		Block::new,
 		BlockBehaviour.Properties.of()
-			.mapColor(MapColor.COLOR_RED)
+			.mapColor(MapColor.NETHER)
 			.strength(0.5F)
 			.sound(SoundType.GRASS)
 	);
@@ -136,7 +137,7 @@ public final class WcnmBlocks {
 		"soul_stone",
 		Block::new,
 		BlockBehaviour.Properties.of()
-			.mapColor(MapColor.COLOR_CYAN)
+			.mapColor(MapColor.TERRACOTTA_CYAN)
 			.strength(32.0F, 1200.0F)
 			.requiresCorrectToolForDrops()
 			.sound(SoundType.STONE)
