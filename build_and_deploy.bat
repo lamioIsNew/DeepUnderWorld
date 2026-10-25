@@ -23,7 +23,7 @@ python modpack\tools\install_pcl_version.py
 if errorlevel 1 goto fail
 
 echo.
-echo Done. Launch "Deep Under World 2.4.0" from PCL2.
+echo Done. Launch "Deep Under World 2.4.1" from PCL2.
 exit /b 0
 
 :fail

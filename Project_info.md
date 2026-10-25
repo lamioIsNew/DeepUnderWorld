@@ -17,7 +17,7 @@
 - 实体：游魂 `wcnm:wandering_soul`、鬼火 `wcnm:ghost_wisp`、阴兵 `wcnm:ghost_soldier`、冥犬 `wcnm:underworld_hound`。
 - 亮度：环境光 0.42，雾距 192，地表无需夜视即可看清。
 - 指令：`/wcnm tp|return|find|ls|kit|tud`，支持按半径/结构/群系定位。
-- 小地图：内置 Xaero's Minimap 26.6.1（Modrinth 小地图类下载量最高）。
+- 小地图：内置 JourneyMap 26.3-6.0.10（全屏地图/路径点/死亡点）。
 - 自定义材质全部位于 `wcnm` 命名空间，不修改原版贴图。
 
 ## 环境

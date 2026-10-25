@@ -10,7 +10,15 @@ import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-JARS = sorted((ROOT / "build" / "downloads").glob("*.jar"))
+MANIFEST = ROOT / "build" / "pack_mods.txt"
+_ALLOWED = None
+if MANIFEST.exists():
+    _ALLOWED = {line.strip() for line in MANIFEST.read_text(encoding="utf-8").splitlines() if line.strip()}
+JARS = [
+    jar
+    for jar in sorted((ROOT / "build" / "downloads").glob("*.jar"))
+    if _ALLOWED is None or jar.name in _ALLOWED
+]
 
 # Dependencies provided by Minecraft / Fabric Loader / Java, not by mod jars.
 BUILTIN = {

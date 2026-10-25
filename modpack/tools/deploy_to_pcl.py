@@ -62,8 +62,16 @@ def main() -> None:
         old_jar.unlink()
 
     mod_count = 0
+    manifest_path = DOWNLOAD_CACHE.parent / "pack_mods.txt"
+    allowed = None
+
+    if manifest_path.exists():
+        allowed = {line.strip() for line in manifest_path.read_text(encoding="utf-8").splitlines() if line.strip()}
 
     for jar in sorted(DOWNLOAD_CACHE.glob("*.jar")):
+        if allowed is not None and jar.name not in allowed:
+            continue
+
         copy_file(jar, mods_dir / jar.name)
         mod_count += 1
 

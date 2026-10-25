@@ -28,7 +28,7 @@ from pathlib import Path
 MC_VERSION = "26.3"
 FABRIC_LOADER = "0.20.1"
 PACK_NAME = "Deep UnderWorld"
-PACK_VERSION = "2.4.0"
+PACK_VERSION = "2.4.1"
 PACK_AUTHOR = "WCNM"
 PACK_SUMMARY = (
     "基于 Fabric 26.3 的《阴森冥界》整合包："
@@ -103,7 +103,7 @@ MODS: list[Mod] = [
     Mod("gA7nKz5g", "体验", side="client", note="Sound Physics Remastered"),
     Mod("vF6qLXsA", "体验", side="client", note="Entity Model Features"),
     Mod("OOEycXyN", "体验", side="client", note="Entity Texture Features"),
-    Mod("eUEhnw8G", "体验", side="client", note="Xaero's Minimap 26.6.1（下载量最高）"),
+    Mod("2zmj8ela", "体验", side="client", note="JourneyMap 26.3-6.0.10"),
     # ---- 光影包 ----
     Mod("Bqen1mJX", "光影", side="client", target="shaderpacks",
         note="Complementary Reimagined r5.9.3"),
@@ -307,6 +307,9 @@ def build() -> None:
     DIST.mkdir(parents=True, exist_ok=True)
     print("Resolving and downloading pinned files...")
     resolved = collect()
+    manifest = [r["filename"] for r in resolved if r["mod"].target == "mods"]
+    manifest += [Path(relative).name for relative, path in LOCAL_FILES if path.exists()]
+    (ROOT / "build" / "pack_mods.txt").write_text("\n".join(manifest) + "\n", encoding="utf-8")
 
     index_online = json.dumps(mrpack_index(resolved, False), indent=2, ensure_ascii=False)
     index_offline = json.dumps(mrpack_index(resolved, True), indent=2, ensure_ascii=False)
@@ -417,7 +420,7 @@ def write_readme(resolved: list[dict]) -> None:
 
 基于 **Fabric {FABRIC_LOADER} + Minecraft {MC_VERSION}** 的《阴森冥界》国风整合包。
 `{PACK_VERSION}` 已包含 WCNM 本体：一个独立的 **冥界维度**、原版主世界噪声地形、
-**50 种随机冥筑**、发光告示牌、多样地表与生物、自绘材质和 Xaero's 小地图；同时保留完整的前置库和性能优化。
+**50 种随机冥筑**、发光告示牌、多样地表与生物、自绘材质和 JourneyMap 小地图；同时保留完整的前置库和性能优化。
 
 ## 下载哪个文件？
 
@@ -480,8 +483,8 @@ def write_readme(resolved: list[dict]) -> None:
 
 ## 小地图
 
-- 已内置 **Xaero's Minimap 26.6.1**（Modrinth 小地图类下载量最高），纯客户端模组。
-- 默认按键 `Y` 打开小地图设置；`U` 创建路径点（以实际按键设置为准）。
+- 已内置 **JourneyMap 26.3-6.0.10**，纯客户端模组，支持全屏地图、路径点和死亡点。
+- 默认按键 `J` 打开全屏地图；小地图和路径点按键可在「选项 → 控制 → 按键绑定」里调整。
 
 ## 已包含内容
 

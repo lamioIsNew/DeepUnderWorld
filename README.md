@@ -21,8 +21,7 @@ soul-soil surface, and two custom ambient spirits.
   further away and hunt players.
 - **Brighter atmosphere**: ambient light is raised to 0.42, fog is lighter and reaches 192
   blocks, so the surface is readable without night vision.
-- **Minimap**: Xaero's Minimap 26.6.1 is bundled for the client (the most-downloaded
-  minimap on Modrinth).
+- **Minimap**: JourneyMap 26.3-6.0.10 is bundled for the client.
 - **50 buildings** selected deterministically on a 96-block grid. Every building has a glowing
   sign reading `第 N 号冥筑 / 名称 / 阴司 · 酆都`.
 - **引魂灯**：右键空气或潜行时右键方块可在冥界/主世界之间往返；普通右键方块会放置为一盏发光的引魂灯。返回阳间前会强制生成目标区块并寻找安全落点，避免落入虚空。
@@ -77,8 +76,8 @@ They can be summoned with `/summon wcnm:wandering_soul`, `/summon wcnm:ghost_wis
 
 ## Minimap
 
-The pack includes **Xaero's Minimap 26.6.1**, the highest-download minimap on Modrinth for
-Fabric 26.3. Default key: `Y` for settings, `U` for a waypoint (check the mod's key binds).
+The pack includes **JourneyMap 26.3-6.0.10** for Fabric 26.3. Open the full-screen map with
+`J`; minimap and waypoint keys can be changed under `Options → Controls → Key Binds`.
 
 ## Build
 
@@ -109,9 +108,9 @@ python modpack\tools\deploy_to_pcl.py
 
 Or run `build_and_deploy.bat`.
 
-Current pack version: **2.4.0**. Deployment copies mods/config/shaderpacks to
-`D:\PCL\.minecraft\DeepUnderWorld-2.4.0\`, installs the launchable PCL2 version
-`D:\PCL\.minecraft\versions\Deep Under World 2.4.0\`, and places the `.mrpack` in the PCL2 root.
+Current pack version: **2.4.1**. Deployment copies mods/config/shaderpacks to
+`D:\PCL\.minecraft\DeepUnderWorld-2.4.1\`, installs the launchable PCL2 version
+`D:\PCL\.minecraft\versions\Deep Under World 2.4.1\`, and places the `.mrpack` in the PCL2 root.
 
 ## Environment
 
