@@ -1,16 +1,16 @@
 # Deep UnderWorld
 
 基于 **Fabric 0.20.1 + Minecraft 26.3** 的《阴森冥界》国风整合包。
-`beta-2.5.1` 已包含 WCNM 本体：一个独立的 **冥界维度**、原版主世界噪声地形、
+`beta-2.5.2` 已包含 WCNM 本体：一个独立的 **冥界维度**、原版主世界噪声地形、
 **50 种随机冥筑**、发光告示牌、多样地表与生物、自绘材质和 JourneyMap 小地图；同时保留完整的前置库和性能优化。
 
 ## 下载哪个文件？
 
 | 文件 | 用途 |
 | --- | --- |
-| `DeepUnderWorld-beta-2.5.1.mrpack` | **推荐**。标准 Modrinth 整合包，导入时联网下载模组，本体与材质已内置。 |
-| `DeepUnderWorld-beta-2.5.1-offline.mrpack` | 离线版，所有模组已打包在内，不需要联网下载。 |
-| `DeepUnderWorld-beta-2.5.1-offline.zip` | CurseForge 格式离线版，兼容性兜底方案（PCL2 也能直接导入）。 |
+| `DeepUnderWorld-beta-2.5.2.mrpack` | **推荐**。标准 Modrinth 整合包，导入时联网下载模组，本体与材质已内置。 |
+| `DeepUnderWorld-beta-2.5.2-offline.mrpack` | 离线版，所有模组已打包在内，不需要联网下载。 |
+| `DeepUnderWorld-beta-2.5.2-offline.zip` | CurseForge 格式离线版，兼容性兜底方案（PCL2 也能直接导入）。 |
 
 > `.mcpack` 是基岩版（Bedrock）格式，Java 版启动器无法使用，所以这里提供 `.mrpack` / `.zip`。
 

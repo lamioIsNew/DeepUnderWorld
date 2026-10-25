@@ -33,7 +33,7 @@ public final class UnderworldPostProcess {
 	private static final int LAKE_RADIUS = 15;
 	private static final int RIVER_LIMIT = 1000;
 	private static final int RIVER_FADE = 90;
-	private static final int RIVER_WATER_Y = 64;
+	private static final int RIVER_WATER_Y = 48;
 
 	private static final BlockState SOUL = WcnmBlocks.SOUL_BLOCK.defaultBlockState();
 	private static final BlockState ASHEN = WcnmBlocks.ASHEN_SOIL.defaultBlockState();

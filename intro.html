@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark">
-<title>阴森冥界 · Deep UnderWorld beta-2.5.1 使用指南</title>
+<title>阴森冥界 · Deep UnderWorld beta-2.5.2 使用指南</title>
 <style>
   :root {
     --bg: #080b0f;
@@ -799,7 +799,7 @@
       <a href="#faq">故障排查</a>
     </nav>
 
-    <span class="version-pill">beta-2.5.1 · MC 26.3</span>
+    <span class="version-pill">beta-2.5.2 · MC 26.3</span>
   </div>
 </header>
 
@@ -819,7 +819,7 @@
       </p>
 
       <div class="hero-tags">
-        <span class="tag hot">beta-2.5.1</span>
+        <span class="tag hot">beta-2.5.2</span>
         <span class="tag">Java 25</span>
         <span class="tag">Fabric 0.20.1</span>
         <span class="tag">47 个模组</span>
@@ -952,7 +952,7 @@
 
     <div class="callout">
       <span class="mark">!</span>
-      <div>本指南对应 <strong>Deep UnderWorld beta-2.5.1</strong>。如果你是旧版本，部分贴图、亮度和指令行为可能不同，建议先更新。</div>
+      <div>本指南对应 <strong>Deep UnderWorld beta-2.5.2</strong>。如果你是旧版本，部分贴图、亮度和指令行为可能不同，建议先更新。</div>
     </div>
   </section>
 
@@ -963,7 +963,7 @@
         <div class="section-kicker">Installation</div>
         <h2>导入 PCL2</h2>
         <p class="section-desc">
-          推荐使用桌面上的 <code class="inline">DeepUnderWorld-beta-2.5.1.mrpack</code>。PCL2 会自动安装
+          推荐使用桌面上的 <code class="inline">DeepUnderWorld-beta-2.5.2.mrpack</code>。PCL2 会自动安装
           Minecraft 26.3、Fabric Loader 和整合包模组。
         </p>
       </div>
@@ -974,7 +974,7 @@
         <h3>方式 A · 在线版 .mrpack <span class="mini">推荐</span></h3>
         <p>文件约 <strong>127 KB</strong>，导入时需要联网，由 Modrinth 下载模组。适合网络正常的情况。</p>
         <ul class="list">
-          <li>下载 <code class="inline">DeepUnderWorld-beta-2.5.1.mrpack</code></li>
+          <li>下载 <code class="inline">DeepUnderWorld-beta-2.5.2.mrpack</code></li>
           <li>直接拖进 PCL2 窗口，或使用「版本列表 → 导入整合包」</li>
           <li>等待依赖下载完成，不要中途关闭 PCL2</li>
         </ul>
@@ -1007,7 +1007,7 @@
       <div class="step">
         <div>
           <h4>等待安装完成</h4>
-          <p>在线版需要下载模组；离线版会直接解压。安装完成后，版本列表中会出现 Deep Under World beta-2.5.1。</p>
+          <p>在线版需要下载模组；离线版会直接解压。安装完成后，版本列表中会出现 Deep Under World beta-2.5.2。</p>
         </div>
       </div>
       <div class="step">
@@ -1019,7 +1019,7 @@
       <div class="step">
         <div>
           <h4>第一次启动</h4>
-          <p>进入游戏后新建世界。旧存档不会重新生成地形；想体验 beta-2.5.1 的新地表，请创建新世界。</p>
+          <p>进入游戏后新建世界。旧存档不会重新生成地形；想体验 beta-2.5.2 的新地表，请创建新世界。</p>
         </div>
       </div>
     </div>
@@ -1031,7 +1031,7 @@
 
     <div class="callout danger">
       <span class="mark">旧版本</span>
-      <div>不要在旧版本目录里直接覆盖 mods。请让 PCL2 新建 beta-2.5.1 实例；旧版本可以保留，确认新版本可启动后再删除。</div>
+      <div>不要在旧版本目录里直接覆盖 mods。请让 PCL2 新建 beta-2.5.2 实例；旧版本可以保留，确认新版本可启动后再删除。</div>
     </div>
   </section>
 
@@ -1181,7 +1181,7 @@
           <li>只生成 <code class="inline">wcnm:underworld</code> 一个群系，没有海洋或原版河流群系。</li>
           <li>湖泊按约 5000×5000 格一个候选点稀疏生成。</li>
           <li>河流只存在于 <code class="inline">|x|,|z| ≤ 1000</code>，边界前 90 格平滑淡出。</li>
-          <li>河流水面固定在同一高度 y=64；深地形中会变成带天然顶盖的地下暗流，浅地形才露出峡谷水面。</li>
+          <li>河流水面固定在同一高度 y=48；地形深处会形成带天然顶盖的地下暗流，低洼处才露出水面。</li>
         </ul>
       </article>
 
@@ -1248,7 +1248,7 @@
 
         <div class="callout warn">
       <span class="mark">创造模式</span>
-      <div>创造物品栏新增 <strong>Underworld / 冥界</strong> 分类，所有自定义方块、引魂灯和四种刷怪蛋都在这里。</div>
+      <div>创造物品栏新增 <strong>Underworld / 冥界</strong> 分类，所有自定义方块、引魂灯和四种刷怪蛋都在这里。如果第一页没看到，请点击创造物品栏右上角的翻页箭头。</div>
     </div>
 
     <div class="table-wrap">
@@ -1279,7 +1279,7 @@
       <div>
         <div class="section-kicker">JourneyMap</div>
         <h2>JourneyMap 小地图</h2>
-        <p class="section-desc">beta-2.5.1 已用 JourneyMap 替代 Xaero's Minimap，功能更完整，操作更接近常见地图模组。</p>
+        <p class="section-desc">beta-2.5.2 已用 JourneyMap 替代 Xaero's Minimap，功能更完整，操作更接近常见地图模组。</p>
       </div>
     </div>
 
@@ -1310,7 +1310,7 @@
       <div>
         <div class="section-kicker">Atmosphere</div>
         <h2>雾效、亮度与画面</h2>
-        <p class="section-desc">beta-2.5.1 的默认环境光已调高到 0.55，雾距 224。正常探索不需要夜视。</p>
+        <p class="section-desc">beta-2.5.2 的默认环境光已调高到 0.55，雾距 224。正常探索不需要夜视。</p>
       </div>
     </div>
 
@@ -1321,7 +1321,7 @@
           <li>确认没有开启「阴间特效」：<code class="inline">/wcnm tud effects off</code></li>
           <li>检查是否启用了光影；Complementary 的夜晚/洞穴效果可能再次压暗画面。</li>
           <li>在视频设置中调高亮度，或使用夜视。</li>
-          <li>不要在旧版本中测试亮度；beta-2.5.1 才包含最新的环境光调整。</li>
+          <li>不要在旧版本中测试亮度；beta-2.5.2 才包含最新的环境光调整。</li>
         </ul>
       </div>
       <div class="card">
@@ -1339,7 +1339,7 @@
       <div>
         <div class="section-kicker">Troubleshooting</div>
         <h2>常见问题</h2>
-        <p class="section-desc">先确认版本是 beta-2.5.1，再按下面的顺序排查。</p>
+        <p class="section-desc">先确认版本是 beta-2.5.2，再按下面的顺序排查。</p>
       </div>
     </div>
 
@@ -1374,14 +1374,14 @@
     <details>
       <summary>引魂灯放出来是紫色/黑色方块或没有模型</summary>
       <div class="detail-body">
-        <p>beta-2.5.1 已重绘引魂灯的方块贴图，修复了使用物品图标作为方块贴图导致的渲染问题。请确认启动的是 beta-2.5.1，而不是 2.4.1 或更早版本。已经放置的引魂灯在更新后会自动使用新贴图。</p>
+        <p>beta-2.5.2 已重绘引魂灯的方块贴图，修复了使用物品图标作为方块贴图导致的渲染问题。请确认启动的是 beta-2.5.2，而不是 2.4.1 或更早版本。已经放置的引魂灯在更新后会自动使用新贴图。</p>
       </div>
     </details>
 
     <details>
       <summary>引魂灯把我放进虚空</summary>
       <div class="detail-body">
-        <p>beta-2.5.1 的返回逻辑会先加载目标区块、读取真实地表高度，并检查头部空间。如果仍然出现异常，请记录主世界出生点坐标和版本号，并提供日志。</p>
+        <p>beta-2.5.2 的返回逻辑会先加载目标区块、读取真实地表高度，并检查头部空间。如果仍然出现异常，请记录主世界出生点坐标和版本号，并提供日志。</p>
       </div>
     </details>
 
@@ -1395,14 +1395,14 @@
     <details>
       <summary>小地图不是 JourneyMap / 同时出现两个小地图</summary>
       <div class="detail-body">
-        <p>beta-2.5.1 只包含 JourneyMap。如果同时看到 Xaero's Minimap，说明你启动的是旧版本实例，或手动复制了旧 mods。请使用 beta-2.5.1 实例，并检查 mods 文件夹中是否还有 <code class="inline">xaerominimap</code>。</p>
+        <p>beta-2.5.2 只包含 JourneyMap。如果同时看到 Xaero's Minimap，说明你启动的是旧版本实例，或手动复制了旧 mods。请使用 beta-2.5.2 实例，并检查 mods 文件夹中是否还有 <code class="inline">xaerominimap</code>。</p>
       </div>
     </details>
 
     <details>
       <summary>游戏里太暗，或者夜视下全是粉红</summary>
       <div class="detail-body">
-        <p>先执行 <code class="inline">/wcnm tud effects off</code>。如果仍然暗，检查光影和视频亮度设置。beta-2.5.1 的基础环境光已经提高；旧版本没有这些调整。</p>
+        <p>先执行 <code class="inline">/wcnm tud effects off</code>。如果仍然暗，检查光影和视频亮度设置。beta-2.5.2 的基础环境光已经提高；旧版本没有这些调整。</p>
       </div>
     </details>
 
@@ -1418,7 +1418,7 @@
   <footer class="footer">
     <div class="wrap">
       <div>
-        <strong>Deep UnderWorld beta-2.5.1</strong><br>
+        <strong>Deep UnderWorld beta-2.5.2</strong><br>
         阴森冥界 · Fabric 26.3 · 47 mods<br>
         指南版本：2026-10-25
       </div>

@@ -108,9 +108,9 @@ python modpack\tools\deploy_to_pcl.py
 
 Or run `build_and_deploy.bat`.
 
-Current pack version: **beta-2.5.1**. Deployment copies mods/config/shaderpacks to
-`D:\PCL\.minecraft\DeepUnderWorld-beta-2.5.1\`, installs the launchable PCL2 version
-`D:\PCL\.minecraft\versions\Deep Under World beta-2.5.1\`, and places the `.mrpack` in the PCL2 root.
+Current pack version: **beta-2.5.2**. Deployment copies mods/config/shaderpacks to
+`D:\PCL\.minecraft\DeepUnderWorld-beta-2.5.2\`, installs the launchable PCL2 version
+`D:\PCL\.minecraft\versions\Deep Under World beta-2.5.2\`, and places the `.mrpack` in the PCL2 root.
 
 ## Environment
 

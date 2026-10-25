@@ -28,7 +28,7 @@ from pathlib import Path
 MC_VERSION = "26.3"
 FABRIC_LOADER = "0.20.1"
 PACK_NAME = "Deep UnderWorld"
-PACK_VERSION = "beta-2.5.1"
+PACK_VERSION = "beta-2.5.2"
 PACK_AUTHOR = "WCNM"
 PACK_SUMMARY = (
     "基于 Fabric 26.3 的《阴森冥界》整合包："
