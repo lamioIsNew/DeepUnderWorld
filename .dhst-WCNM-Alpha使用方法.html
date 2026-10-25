@@ -1,0 +1,1917 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>.dhst-WCNM-Alpha 使用方法 · 阴森冥界 beta-2.5.3</title>
+<style>
+  :root {
+    --bg: #080b0f;
+    --bg-soft: #0d1218;
+    --panel: #121820;
+    --panel-2: #171f29;
+    --line: #26313c;
+    --line-soft: rgba(148, 177, 184, 0.14);
+    --text: #d8e0e4;
+    --muted: #8c9ba4;
+    --dim: #61717b;
+    --teal: #75c9ba;
+    --teal-soft: rgba(117, 201, 186, 0.12);
+    --gold: #c9a76a;
+    --gold-soft: rgba(201, 167, 106, 0.12);
+    --red: #b95b64;
+    --red-soft: rgba(185, 91, 100, 0.12);
+    --shadow: 0 24px 70px rgba(0, 0, 0, 0.42);
+    --radius: 16px;
+    --max: 1180px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 86px;
+    background: var(--bg);
+  }
+
+  body {
+    margin: 0;
+    color: var(--text);
+    background:
+      radial-gradient(900px 520px at 12% -8%, rgba(69, 139, 132, 0.15), transparent 62%),
+      radial-gradient(760px 480px at 92% 4%, rgba(139, 91, 68, 0.12), transparent 60%),
+      radial-gradient(900px 700px at 50% 100%, rgba(53, 66, 89, 0.12), transparent 65%),
+      var(--bg);
+    font-family: "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", "Noto Sans SC", system-ui, sans-serif;
+    line-height: 1.78;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.28;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+    background-size: 52px 52px;
+    mask-image: linear-gradient(to bottom, black, transparent 78%);
+  }
+
+  ::selection {
+    color: #071012;
+    background: var(--teal);
+  }
+
+  a { color: var(--teal); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .wrap {
+    width: min(var(--max), calc(100% - 40px));
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ---------- top bar ---------- */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    border-bottom: 1px solid var(--line-soft);
+    background: rgba(8, 11, 15, 0.82);
+    backdrop-filter: blur(18px);
+  }
+
+  .topbar .wrap {
+    height: 68px;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    min-width: max-content;
+    color: var(--text);
+  }
+
+  .brand:hover { text-decoration: none; }
+
+  .brand-mark {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(201, 167, 106, 0.45);
+    border-radius: 50%;
+    color: var(--gold);
+    background: radial-gradient(circle at 35% 25%, rgba(201, 167, 106, 0.18), transparent 65%);
+    font-family: "STKaiti", "KaiTi", serif;
+    font-size: 22px;
+    box-shadow: inset 0 0 18px rgba(201, 167, 106, 0.08);
+  }
+
+  .brand-text strong {
+    display: block;
+    font-size: 15px;
+    letter-spacing: 0.12em;
+    font-weight: 700;
+  }
+
+  .brand-text span {
+    display: block;
+    margin-top: -3px;
+    color: var(--dim);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: auto;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav::-webkit-scrollbar { display: none; }
+
+  .nav a {
+    color: var(--muted);
+    padding: 7px 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .nav a:hover,
+  .nav a.active {
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.05);
+    text-decoration: none;
+  }
+
+  .version-pill {
+    flex: none;
+    color: var(--gold);
+    border: 1px solid rgba(201, 167, 106, 0.32);
+    background: var(--gold-soft);
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+  }
+
+  /* ---------- hero ---------- */
+  .hero {
+    padding: 82px 0 54px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+    gap: 54px;
+    align-items: center;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--teal);
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+
+  .eyebrow::before {
+    content: "";
+    width: 32px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--teal), transparent);
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    font-weight: 750;
+  }
+
+  h1 .cn {
+    display: block;
+    font-family: "STKaiti", "KaiTi", "Songti SC", serif;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: #e8e0d4;
+  }
+
+  h1 .en {
+    display: block;
+    margin-top: 8px;
+    font-size: 0.37em;
+    letter-spacing: 0.19em;
+    color: var(--dim);
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  .hero-lead {
+    max-width: 620px;
+    margin: 24px 0 0;
+    color: var(--muted);
+    font-size: 16px;
+  }
+
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 26px 0 0;
+  }
+
+  .tag {
+    border: 1px solid var(--line);
+    color: #aeb9bf;
+    border-radius: 999px;
+    padding: 5px 11px;
+    font-size: 12px;
+    background: rgba(255, 255, 255, 0.018);
+  }
+
+  .tag.hot {
+    color: var(--teal);
+    border-color: rgba(117, 201, 186, 0.32);
+    background: var(--teal-soft);
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 30px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 42px;
+    padding: 9px 18px;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.025);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition: 150ms ease;
+  }
+
+  .btn:hover {
+    text-decoration: none;
+    transform: translateY(-1px);
+    border-color: #3a4a56;
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .btn.primary {
+    color: #071210;
+    border-color: transparent;
+    background: linear-gradient(135deg, #8dd9c9, #65b3a6);
+    box-shadow: 0 12px 32px rgba(101, 179, 166, 0.18);
+  }
+
+  .btn.primary:hover {
+    background: linear-gradient(135deg, #a1e7d7, #70c1b3);
+  }
+
+  .hero-art {
+    position: relative;
+    min-height: 390px;
+    border-radius: 26px;
+    border: 1px solid rgba(201, 167, 106, 0.16);
+    background:
+      radial-gradient(280px 210px at 68% 24%, rgba(168, 91, 76, 0.18), transparent 65%),
+      radial-gradient(320px 300px at 50% 95%, rgba(87, 151, 142, 0.12), transparent 70%),
+      linear-gradient(160deg, #11161d, #0a0e13);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+
+  .hero-art::after {
+    content: "";
+    position: absolute;
+    inset: auto -20% -45% -20%;
+    height: 70%;
+    background: radial-gradient(ellipse at center, rgba(117, 201, 186, 0.15), transparent 68%);
+    filter: blur(16px);
+  }
+
+  .hero-art svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+  .art-caption {
+    position: absolute;
+    left: 22px;
+    bottom: 18px;
+    z-index: 2;
+    color: #7d8c95;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+  }
+
+  /* ---------- common section ---------- */
+  .section {
+    padding: 54px 0;
+    border-top: 1px solid var(--line-soft);
+  }
+
+  .section-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 26px;
+  }
+
+  .section-kicker {
+    color: var(--teal);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 7px;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: clamp(25px, 3vw, 36px);
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+  }
+
+  h3 {
+    margin: 0 0 10px;
+    font-size: 17px;
+    letter-spacing: 0.01em;
+  }
+
+  .section-desc {
+    max-width: 650px;
+    margin: 10px 0 0;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  .grid { display: grid; gap: 16px; }
+  .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+  .card {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: linear-gradient(155deg, rgba(23, 31, 41, 0.92), rgba(15, 21, 28, 0.92));
+    padding: 22px;
+    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.15);
+  }
+
+  .card.soft {
+    background: rgba(18, 24, 32, 0.65);
+    box-shadow: none;
+  }
+
+  .card p { margin: 0; color: var(--muted); font-size: 13.5px; }
+  .card p + p { margin-top: 10px; }
+
+  .icon {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+    margin-bottom: 14px;
+    color: var(--teal);
+    border: 1px solid rgba(117, 201, 186, 0.2);
+    background: var(--teal-soft);
+  }
+
+  .icon svg { width: 20px; height: 20px; }
+
+  .card.gold .icon {
+    color: var(--gold);
+    border-color: rgba(201, 167, 106, 0.22);
+    background: var(--gold-soft);
+  }
+
+  .card.red .icon {
+    color: var(--red);
+    border-color: rgba(185, 91, 100, 0.22);
+    background: var(--red-soft);
+  }
+
+  .feature-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .mini {
+    color: var(--dim);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+
+  .list {
+    margin: 12px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .list li {
+    position: relative;
+    padding-left: 18px;
+    color: var(--muted);
+    font-size: 13.5px;
+    margin: 8px 0;
+  }
+
+  .list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 6px;
+    height: 6px;
+    border: 1px solid var(--teal);
+    border-radius: 50%;
+    background: rgba(117, 201, 186, 0.22);
+  }
+
+  .list.gold li::before { border-color: var(--gold); background: rgba(201, 167, 106, 0.22); }
+  .list.red li::before { border-color: var(--red); background: rgba(185, 91, 100, 0.22); }
+
+  /* ---------- callouts ---------- */
+  .callout {
+    display: flex;
+    gap: 13px;
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--teal);
+    border-radius: 12px;
+    background: rgba(117, 201, 186, 0.055);
+    padding: 15px 17px;
+    margin: 18px 0;
+    color: #b9c8ca;
+    font-size: 13.5px;
+  }
+
+  .callout .mark {
+    color: var(--teal);
+    font-weight: 800;
+    line-height: 1.4;
+  }
+
+  .callout.warn {
+    border-left-color: var(--gold);
+    background: rgba(201, 167, 106, 0.06);
+  }.callout.warn .mark { color: var(--gold); }
+
+  .callout.danger {
+    border-left-color: var(--red);
+    background: rgba(185, 91, 100, 0.06);
+  }
+  .callout.danger .mark { color: var(--red); }
+
+  /* ---------- steps ---------- */
+  .steps { counter-reset: step; display: grid; gap: 12px; margin-top: 18px; }
+
+  .step {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr);
+    gap: 15px;
+    padding: 16px 18px;
+    border: 1px solid var(--line);
+    border-radius: 13px;
+    background: rgba(18, 24, 32, 0.72);
+  }
+
+  .step::before {
+    counter-increment: step;
+    content: counter(step, decimal-leading-zero);
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border-radius: 9px;
+    border: 1px solid rgba(117, 201, 186, 0.22);
+    background: var(--teal-soft);
+    color: var(--teal);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+  }
+
+  .step h4 { margin: 1px 0 3px; font-size: 14px; }
+  .step p { margin: 0; color: var(--muted); font-size: 13px; }
+
+  /* ---------- code / commands ---------- */
+  code, .code {
+    font-family: "Cascadia Code", "JetBrains Mono", Consolas, "Courier New", monospace;
+    font-size: 0.92em;
+  }
+
+  code.inline {
+    padding: 2px 6px;
+    border-radius: 5px;
+    border: 1px solid var(--line);
+    background: #0b1117;
+    color: #bcded7;
+    white-space: nowrap;
+  }
+
+  .cmdbox {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: #090e13;
+    padding: 10px 12px;
+    margin: 10px 0;
+    overflow: hidden;
+  }
+
+  .cmdbox code {
+    flex: 1;
+    color: #9fe0d2;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: thin;
+  }
+
+  .copy {
+    flex: none;
+    cursor: pointer;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--muted);
+    padding: 4px 8px;
+    font-size: 11px;
+    font-family: inherit;
+  }
+
+  .copy:hover { color: var(--text); border-color: #40505c; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 14px;
+    font-size: 13.5px;
+  }
+
+  th, td {
+    text-align: left;
+    vertical-align: top;
+    padding: 12px 13px;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  th {
+    color: var(--gold);
+    font-size: 11px;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.018);
+  }
+
+  td { color: var(--muted); }
+  td strong { color: var(--text); font-weight: 600; }
+  tr:last-child td { border-bottom: 0; }
+
+  .table-wrap {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: auto;
+    background: rgba(18, 24, 32, 0.6);
+  }
+
+  .table-wrap table { margin: 0; min-width: 620px; }
+
+  /* ---------- details ---------- */
+  details {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: rgba(18, 24, 32, 0.62);
+    padding: 0 16px;
+    margin: 10px 0;
+  }
+
+  details[open] { background: rgba(23, 31, 41, 0.82); }
+
+  summary {
+    cursor: pointer;
+    padding: 15px 0;
+    color: #cbd5d8;
+    font-size: 14px;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  summary::-webkit-details-marker { display: none; }
+
+  summary::after {
+    content: "+";
+    color: var(--teal);
+    font-size: 18px;
+    font-weight: 300;
+  }
+
+  details[open] summary::after { content: "–"; }
+
+  details .detail-body {
+    padding: 0 0 16px;
+    color: var(--muted);
+    font-size: 13.5px;
+  }
+
+  details .detail-body p { margin: 8px 0; }
+  details .detail-body ul { margin: 8px 0; padding-left: 20px; }
+  details .detail-body li { margin: 5px 0; }
+
+  /* ---------- misc ---------- */
+  .split {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 18px;
+    align-items: start;
+  }
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  .stat {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: rgba(18, 24, 32, 0.62);
+    padding: 14px;
+  }
+
+  .stat b {
+    display: block;
+    color: var(--gold);
+    font-size: 20px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  .stat span { color: var(--dim); font-size: 11px; }
+
+  .footer {
+    border-top: 1px solid var(--line-soft);
+    padding: 34px 0 50px;
+    color: var(--dim);
+    font-size: 12px;
+  }
+
+  .footer .wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .footer strong { color: var(--muted); letter-spacing: 0.06em; }
+
+  .to-top {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    z-index: 30;
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: rgba(13, 18, 24, 0.9);
+    color: var(--muted);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(8px);
+    pointer-events: none;
+    transition: 160ms ease;
+  }
+
+  .to-top.show { opacity: 1; transform: none; pointer-events: auto; }
+  .to-top:hover { color: var(--text); border-color: #40505c; }
+
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 28px;
+    z-index: 40;
+    transform: translate(-50%, 12px);
+    opacity: 0;
+    pointer-events: none;
+    color: #0a1412;
+    background: #9fe0d2;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    transition: 160ms ease;
+  }
+
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+  /* ---------- project file / roadmap / repository ---------- */
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  .meta {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: rgba(18, 24, 32, 0.62);
+    padding: 13px 15px;
+  }
+
+  .meta .k {
+    color: var(--dim);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .meta .v {
+    margin-top: 4px;
+    color: var(--text);
+    font-size: 13.5px;
+    word-break: break-word;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 10px;
+    line-height: 1.5;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+  }
+
+  .badge.done { color: var(--teal); border-color: rgba(117, 201, 186, 0.36); background: var(--teal-soft); }
+  .badge.next { color: var(--gold); border-color: rgba(201, 167, 106, 0.38); background: var(--gold-soft); }
+  .badge.plan { color: #aeb9bf; border-color: var(--line); background: rgba(255, 255, 255, 0.02); }
+
+  .roadmap { display: grid; gap: 12px; margin-top: 18px; }
+
+  .phase {
+    display: grid;
+    grid-template-columns: 154px minmax(0, 1fr);
+    gap: 18px;
+    padding: 18px 18px 17px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: rgba(18, 24, 32, 0.64);
+  }
+
+  .phase-name {
+    color: var(--gold);
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+  }
+
+  .phase-sub {
+    margin-top: 3px;
+    color: var(--dim);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+
+  .phase h3 { margin: 1px 0 7px; font-size: 15px; color: #dbe4e7; }
+  .phase p { margin: 0 0 9px; color: var(--muted); font-size: 13px; }
+
+  .task-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 5px;
+  }
+
+  .task-list li {
+    position: relative;
+    padding-left: 16px;
+    color: var(--muted);
+    font-size: 12.5px;
+  }
+
+  .task-list li::before {
+    content: "·";
+    position: absolute;
+    left: 2px;
+    color: var(--teal);
+    font-weight: 700;
+  }
+
+  .repo-card {
+    border: 1px solid rgba(201, 167, 106, 0.30);
+    border-radius: var(--radius);
+    background:
+      radial-gradient(600px 260px at 88% 0%, rgba(201, 167, 106, 0.12), transparent 70%),
+      rgba(18, 24, 32, 0.72);
+    padding: 24px;
+    margin-top: 18px;
+  }
+
+  .repo-card h3 { margin: 4px 0 8px; font-size: 22px; }
+  .repo-card p { margin: 0 0 12px; color: var(--muted); font-size: 13.5px; }
+
+  .repo-url {
+    display: block;
+    margin: 10px 0 16px;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    color: var(--teal);
+    background: rgba(8, 11, 15, 0.5);
+    font-family: Consolas, "Cascadia Code", monospace;
+    font-size: 12.5px;
+    word-break: break-all;
+  }
+
+  .repo-url:hover { text-decoration: none; border-color: rgba(117, 201, 186, 0.4); }
+
+  .repo-actions { display: flex; flex-wrap: wrap; gap: 9px; }
+
+  @media (max-width: 980px) {
+    .hero { grid-template-columns: 1fr; padding-top: 54px; gap: 30px; }
+    .hero-art { min-height: 300px; order: -1; }
+    .grid.three, .grid.four { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .split { grid-template-columns: 1fr; }
+    .nav { display: none; }
+  }
+
+  @media (max-width: 680px) {
+    .wrap { width: min(var(--max), calc(100% - 26px)); }
+    .topbar .wrap { height: 60px; }
+    .brand-text span { display: none; }
+    .brand-text strong { font-size: 13px; }
+    .hero { padding-top: 38px; }
+    h1 { font-size: clamp(36px, 12vw, 52px); }
+    .grid.two, .grid.three, .grid.four { grid-template-columns: 1fr; }
+    .stat-row { grid-template-columns: 1fr; }
+    .section { padding: 40px 0; }
+    .section-head { align-items: flex-start; flex-direction: column; gap: 8px; }
+    .step { grid-template-columns: 36px minmax(0, 1fr); padding: 14px; }
+    .version-pill { display: none; }
+    .cmdbox { align-items: flex-start; flex-direction: column; }
+    .copy { align-self: flex-end; }
+    .meta-grid { grid-template-columns: 1fr; }
+    .phase { grid-template-columns: 1fr; gap: 10px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+<body id="top">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="返回顶部">
+      <span class="brand-mark">冥</span>
+      <span class="brand-text">
+        <strong>阴森冥界</strong>
+        <span>Deep UnderWorld</span>
+      </span>
+    </a>
+
+    <nav class="nav" aria-label="页面导航">
+      <a href="#intro">简介</a>
+      <a href="#details">模组详解</a>
+      <a href="#import">PCL2 导入</a>
+      <a href="#first">首次进入</a>
+      <a href="#commands">指令</a>
+      <a href="#world">地形生物</a>
+      <a href="#blocks">方块</a>
+      <a href="#minimap">小地图</a>
+      <a href="#roadmap">开发计划</a>
+      <a href="#github">GitHub</a>
+      <a href="#faq">故障排查</a>
+    </nav>
+
+    <span class="version-pill">beta-2.5.3 · MC 26.3</span>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- HERO -->
+  <section class="hero" id="intro">
+    <div>
+      <div class="eyebrow">Fabric · Minecraft 26.3 · Chinese Underworld</div>
+      <h1>
+        <span class="cn">阴森冥界</span>
+        <span class="en">Deep UnderWorld</span>
+      </h1>
+      <p class="hero-lead">
+        一个以中国冥界为主题的 Fabric 整合包：独立冥界维度、原版主世界式噪声地形、
+        50 座随机冥筑、可放置的引魂灯、多种地表与生物，以及 JourneyMap 小地图。
+      </p>
+
+      <div class="hero-tags">
+        <span class="tag hot">beta-2.5.3</span>
+        <span class="tag">WCNM-Alpha</span>
+        <span class="tag">Java 25</span>
+        <span class="tag">Fabric 0.20.1</span>
+        <span class="tag">47 个模组</span>
+        <span class="tag">冥界创造分类</span>
+        <span class="tag">无原版贴图覆盖</span>
+      </div>
+
+      <div class="hero-actions">
+        <a class="btn primary" href="#import">开始导入 PCL2</a>
+        <a class="btn" href="#commands">查看指令速查</a>
+        <a class="btn" href="#faq">遇到问题？</a>
+      </div>
+    </div>
+
+    <div class="hero-art" aria-hidden="true">
+      <svg viewBox="0 0 520 420" fill="none">
+        <defs>
+          <radialGradient id="moon" cx="50%" cy="50%" r="50%">
+            <stop offset="0" stop-color="#d7aa83" stop-opacity=".85"/>
+            <stop offset=".55" stop-color="#9b5d55" stop-opacity=".4"/>
+            <stop offset="1" stop-color="#9b5d55" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="gate" x1="0" y1="0" x2="0" y2="1">
+            <stop stop-color="#6c5a46"/>
+            <stop offset="1" stop-color="#2b3037"/>
+          </linearGradient>
+          <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+            <stop stop-color="#31504c" stop-opacity=".8"/>
+            <stop offset="1" stop-color="#0c1115" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+
+        <circle cx="365" cy="108" r="92" fill="url(#moon)"/>
+        <circle cx="365" cy="108" r="52" fill="#b47568" opacity=".22"/>
+        <circle cx="365" cy="108" r="35" fill="#d7a487" opacity=".14"/>
+
+        <g opacity=".62" stroke="#4d5e60" stroke-width="1">
+          <path d="M0 338 C110 312 175 344 260 326 C363 304 432 330 520 306"/>
+          <path d="M0 354 C122 334 192 360 278 342 C376 322 452 346 520 330"/>
+          <path d="M0 372 C130 352 212 382 306 358 C402 334 468 362 520 348"/>
+        </g>
+
+        <g fill="url(#gate)">
+          <rect x="168" y="176" width="22" height="132" rx="2"/>
+          <rect x="330" y="176" width="22" height="132" rx="2"/>
+          <rect x="150" y="160" width="220" height="20" rx="3"/>
+          <rect x="140" y="144" width="240" height="18" rx="4" fill="#5c5144"/>
+        </g>
+
+        <g fill="#272d32" stroke="#6c5a46" stroke-width="1">
+          <rect x="174" y="132" width="196" height="14"/>
+          <rect x="162" y="112" width="220" height="12"/>
+          <path d="M164 112 L254 76 L364 112 Z" fill="#3b4044"/>
+          <path d="M150 132 L254 92 L378 132 Z" fill="#343b3e"/>
+        </g>
+
+        <g>
+          <rect x="246" y="226" width="48" height="12" rx="2" fill="#1a2024" stroke="#8d744e"/>
+          <rect x="250" y="238" width="40" height="8" rx="1" fill="#1a2024" stroke="#8d744e"/>
+          <circle cx="263" cy="250" r="3" fill="#92ddca" opacity=".8"/>
+          <circle cx="277" cy="250" r="3" fill="#92ddca" opacity=".55"/>
+        </g>
+
+        <g fill="#a6e0d2" opacity=".8">
+          <circle cx="132" cy="258" r="1.6"/>
+          <circle cx="406" cy="232" r="1.4"/>
+          <circle cx="386" cy="286" r="1.2"/>
+          <circle cx="112" cy="316" r="1.3"/>
+          <circle cx="305" cy="300" r="1.1"/>
+        </g>
+
+        <ellipse cx="260" cy="372" rx="250" ry="52" fill="url(#ground)"/>
+      </svg>
+      <div class="art-caption">WCNM · 阴司 · 酆都</div>
+    </div>
+  </section>
+
+  <!-- OVERVIEW -->
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <div class="section-kicker">Overview</div>
+        <h2>这个整合包是什么</h2>
+        <p class="section-desc">
+          它不是一个只换了颜色的世界，而是一套完整的冥界玩法框架。地形由原版主世界噪声生成，
+          建筑、生物、地表和指令则围绕阴司主题重新组织。
+        </p>
+      </div>
+    </div>
+
+    <div class="grid four">
+      <article class="card">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 20h18M5 20V9l7-5 7 5v11M9 20v-6h6v6"/></svg>
+        </div>
+        <h3>独立维度</h3>
+        <p><code class="inline">wcnm:underworld</code>，出生点鬼门关，y=81，无岩顶，可自由飞行。</p>
+      </article>
+
+      <article class="card">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 19c3-6 5-8 8-8s5 2 8 8M7 8c2-2 3-4 5-4s3 2 5 4"/></svg>
+        </div>
+        <h3>原版噪声地形</h3>
+        <p>主世界式丘陵、山谷与洞穴，不再使用 WFC 台地；只保留一个冥界群系。</p>
+      </article>
+
+      <article class="card">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 21h16M6 21V9l6-4 6 4v12M10 21v-5h4v5"/></svg>
+        </div>
+        <h3>50 座冥筑</h3>
+        <p>鬼门关、奈何桥、阎罗殿、酆都城、十八层狱……每座建筑都有发光告示牌。</p>
+      </article>
+
+      <article class="card">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1"/></svg>
+        </div>
+        <h3>多样地表与生物</h3>
+        <p>冥土、魂砂砾、骨壤、血苔、魂石、阴草；游魂、鬼火、阴兵与冥犬。</p>
+      </article>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat"><b>47</b><span>整合包模组数</span></div>
+      <div class="stat"><b>50</b><span>可定位冥筑</span></div>
+      <div class="stat"><b>4</b><span>自定义生物</span></div>
+    </div>
+
+    <div class="callout">
+      <span class="mark">!</span>
+      <div>本指南对应 <strong>Deep UnderWorld beta-2.5.3</strong>。如果你是旧版本，部分贴图、亮度和指令行为可能不同，建议先更新。</div>
+    </div>
+  </section>
+
+  <!-- PROJECT FILE -->
+  <section class="section" id="details">
+    <div class="section-head">
+      <div>
+        <div class="section-kicker">Project File · WCNM-Alpha</div>
+        <h2>模组详解：冥界不是一张换色地图</h2>
+        <p class="section-desc">
+          <strong>Deep UnderWorld / 阴森冥界</strong> 是一个以中国阴司传说为主题的 Fabric 内容模组。
+          它把“冥界”做成真正可探索的维度：地形沿用原版主世界噪声，建筑、地表、生物、物品和传送规则则全部围绕冥界重新搭建。
+          下面的说明对应当前整合包版本 <strong>beta-2.5.3</strong>。
+        </p>
+      </div>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta"><div class="k">Mod / Pack</div><div class="v">WCNM-Alpha · Deep UnderWorld · 阴森冥界</div></div>
+      <div class="meta"><div class="k">Current version</div><div class="v">beta-2.5.3 <span class="badge done">当前稳定测试版</span></div></div>
+      <div class="meta"><div class="k">Environment</div><div class="v">Minecraft 26.3 · Fabric Loader 0.20.1 · Java 25</div></div>
+      <div class="meta"><div class="k">Content</div><div class="v">1 个独立维度 · 50 座冥筑 · 4 种自定义生物</div></div>
+      <div class="meta"><div class="k">Modpack</div><div class="v">47 个模组 · JourneyMap · Iris · Sodium 系列优化</div></div>
+      <div class="meta"><div class="k">License / Repo</div><div class="v">CC0-1.0 · <a href="https://github.com/lamioIsNew/DeepUnderWorld" target="_blank" rel="noopener">GitHub</a></div></div>
+    </div>
+
+    <div class="grid two" style="margin-top:18px">
+      <article class="card">
+        <h3>你会体验到什么</h3>
+        <ul class="list">
+          <li>从主世界通过引魂灯或 <code class="inline">/wcnm tp</code> 进入独立冥界维度。</li>
+          <li>在接近主世界逻辑的丘陵、山谷、洞穴和暗流之间探索，而不是固定台地。</li>
+          <li>寻找 50 座不同编号的冥筑：鬼门关、奈何桥、阎罗殿、酆都城、十八层狱等。</li>
+          <li>用灵魂块、冥土、骨壤、血苔、魂石和彼岸花认识这个世界的视觉语言。</li>
+          <li>在创造模式独立分类里直接取用全部自定义方块、引魂灯和刷怪蛋。</li>
+          <li>用 JourneyMap 记录路径、死亡点和已探索区域。</li>
+        </ul>
+      </article>
+
+      <article class="card gold">
+        <h3>设计原则</h3>
+        <ul class="list gold">
+          <li><strong>原版地形优先：</strong>使用 <code class="inline">NoiseBasedChunkGenerator</code>，不采用 WFC 或自研 Perlin。</li>
+          <li><strong>单一冥界群系：</strong>没有海洋、没有原版河流群系，湖泊与河流由后处理控制。</li>
+          <li><strong>自定义材质隔离：</strong>所有贴图都在 <code class="inline">wcnm</code> 命名空间下，不覆盖原版贴图。</li>
+          <li><strong>可读的黑暗：</strong>环境光 0.55、雾距 224，同时保留雾效开关给不同显示器。</li>
+          <li><strong>所有内容可定位：</strong>每座建筑都有发光告示牌，并可用指令查找。</li>
+          <li><strong>失败可恢复：</strong>返回阳间会先加载目标区块并寻找安全落点。</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="table-wrap" style="margin-top:18px">
+      <table>
+        <thead><tr><th>系统</th><th>当前实现</th><th>玩家入口</th></tr></thead>
+        <tbody>
+          <tr><td><strong>独立维度</strong></td><td><code class="inline">wcnm:underworld</code>，高度 -64..319，无岩顶，带天空光</td><td><code class="inline">/wcnm tp</code> 或引魂灯</td></tr>
+          <tr><td><strong>地形</strong></td><td>原版主世界噪声 + 自定义 noise settings / material rule / 固定群系</td><td>进入冥界后自动生成</td></tr>
+          <tr><td><strong>地表</strong></td><td>灵魂块主体，混合冥土、魂砂砾、骨壤、血苔、魂石；阴草与彼岸花点缀</td><td>直接观察 / 采集</td></tr>
+          <tr><td><strong>河流与湖泊</strong></td><td>河流限制在 |x|,|z| ≤ 1000，水面 y=48；湖泊约每 5000 格一个候选点</td><td><code class="inline">/wcnm ls</code> 判断当前区块</td></tr>
+          <tr><td><strong>建筑</strong></td><td>96 格确定性网格，50 个编号；10 种建筑原型；每座至少一块发光告示牌</td><td><code class="inline">/wcnm find radius</code> / <code class="inline">find structure</code></td></tr>
+          <tr><td><strong>生物</strong></td><td>游魂、鬼火、阴兵、冥犬；飞行灵体采用悦灵式悬浮巡游，不摔落扣血</td><td><code class="inline">/summon</code> 或刷怪蛋</td></tr>
+          <tr><td><strong>创造分类</strong></td><td>独立的 <strong>Underworld / 冥界</strong> 页签，不注入原版分类</td><td>创造物品栏翻页</td></tr>
+          <tr><td><strong>引魂灯</strong></td><td>可放置为亮度 15 的灯；右键空气传送；潜行右键方块只传送不放置</td><td><code class="inline">/wcnm kit</code> 获取</td></tr>
+          <tr><td><strong>小地图</strong></td><td>JourneyMap 26.3-6.0.10，支持全屏地图、路径点、死亡点</td><td>默认按 <code class="inline">J</code></td></tr>
+          <tr><td><strong>环境控制</strong></td><td>单人雾距 / 雾效开关，服务端同步到客户端</td><td><code class="inline">/wcnm tud ...</code></td></tr>
+          <tr><td><strong>旧存档修复</strong></td><td>beta-2.5.3 起，加载旧世界时会补齐跨区块生成时缺失的鬼门关西柱和屋顶</td><td>启动世界时自动执行</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid two" style="margin-top:18px">
+      <article class="card">
+        <h3>代码结构（给开发者和整合包作者）</h3>
+        <ul class="list">
+          <li><code class="inline">UnderworldChunkGenerator</code>：包装原版噪声生成器，固定冥界群系与地表规则。</li>
+          <li><code class="inline">UnderworldPostProcess</code>：河流、湖泊、地表调色板、建筑站点、出生点鬼门关与旧存档修复。</li>
+          <li><code class="inline">UnderworldBuildings</code>：10 种建筑原型与 50 座建筑编号；告示牌文字由建筑目录生成。</li>
+          <li><code class="inline">WcnmItems / WcnmCreativeTabs</code>：自定义物品、刷怪蛋和独立创造分类。</li>
+          <li><code class="inline">UnderworldTeleporter / GuidingLanternItem</code>：双向传送与安全落点。</li>
+          <li><code class="inline">HoverWanderGoal</code>：飞行灵体的低空/高空巡游。</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h3>版本记录</h3>
+        <ul class="list gold">
+          <li><strong>beta-2.5.3：</strong>修复鬼门关跨区块只生成半边的问题；旧世界自动补齐西柱与屋顶；自检覆盖两侧石柱。</li>
+          <li><strong>beta-2.5.2：</strong>河流水面调整到 y=48，保留地下暗流；创造分类与文档完善。</li>
+          <li><strong>beta-2.5.1：</strong>自定义创造分类改为独立注册；河流边界与可达性调整。</li>
+          <li><strong>beta-2.5.0：</strong>接入 JourneyMap，替换旧小地图；整体地形与建筑密度调整。</li>
+          <li><strong>2.4.x 及更早：</strong>冥界维度、50 冥筑和自定义地表的早期原型。</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="callout warn">
+      <span class="mark">当前边界</span>
+      <div>
+        当前版本重点是“世界与氛围”，不是完整任务线。建筑内部、战利品、Boss、任务和交易仍在开发计划中；
+        已经生成的地形区块不会因为更新而重写（鬼门关修复是专门的迁移逻辑）。如果你要体验最新地形，请新建世界或探索未生成区域。
+      </div>
+    </div>
+  </section>
+
+  <!-- PCL IMPORT -->
+  <section class="section" id="import">
+    <div class="section-head">
+      <div>
+        <div class="section-kicker">Installation</div>
+        <h2>导入 PCL2</h2>
+        <p class="section-desc">
+          推荐使用桌面上的 <code class="inline">DeepUnderWorld-beta-2.5.3.mrpack</code>。PCL2 会自动安装
+          Minecraft 26.3、Fabric Loader 和整合包模组。
+        </p>
+      </div>
+    </div>
+
+    <div class="grid two">
+      <article class="card soft">
+        <h3>方式 A · 在线版 .mrpack <span class="mini">推荐</span></h3>
+        <p>文件约 <strong>127 KB</strong>，导入时需要联网，由 Modrinth 下载模组。适合网络正常的情况。</p>
+        <ul class="list">
+          <li>下载 <code class="inline">DeepUnderWorld-beta-2.5.3.mrpack</code></li>
+          <li>直接拖进 PCL2 窗口，或使用「版本列表 → 导入整合包」</li>
+          <li>等待依赖下载完成，不要中途关闭 PCL2</li>
+        </ul>
+      </article>
+
+      <article class="card soft">
+        <h3>方式 B · 离线版 .mrpack / .zip <span class="mini">无网络</span></h3>
+        <p>离线版约 <strong>41 MB</strong>，所有模组已经打包在里面，不需要在线下载。</p>
+        <ul class="list gold">
+          <li>优先使用 <code class="inline">-offline.mrpack</code></li>
+          <li>PCL2 兼容性异常时再使用 <code class="inline">-offline.zip</code></li>
+          <li>导入方式与在线版相同</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div>
+          <h4>确认 Java 25</h4>
+          <p>打开 PCL2 → 设置 → Java，选择 Java 25。Minecraft 26.3 不能使用 Java 17 或 Java 21 启动。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div>
+          <h4>把 .mrpack 拖进 PCL2</h4>
+          <p>也可以点击 PCL2 的「版本列表」→「导入整合包」，选中文件。PCL2 会识别 Modrinth 格式。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div>
+          <h4>等待安装完成</h4>
+          <p>在线版需要下载模组；离线版会直接解压。安装完成后，版本列表中会出现 Deep Under World beta-2.5.3。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div>
+          <h4>分配内存并启动</h4>
+          <p>建议分配 4–6 GB 内存。不要把所有内存都给 Minecraft，否则 Windows 和 PCL2 会不稳定。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div>
+          <h4>第一次启动</h4>
+          <p>进入游戏后新建世界。旧存档不会重新生成地形；想体验 beta-2.5.3 的新地表，请创建新世界。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout warn">
+      <span class="mark">注意</span>
+      <div>在线版导入失败时，通常是网络无法访问 Modrinth 或启动器缺少代理。换用离线版即可绕过模组下载。</div>
+    </div>
+
+    <div class="callout danger">
+      <span class="mark">旧版本</span>
+      <div>不要在旧版本目录里直接覆盖 mods。请让 PCL2 新建 beta-2.5.3 实例；旧版本可以保留，确认新版本可启动后再删除。</div>
+    </div>
+  </section>
+
+  <!-- FIRST ENTRY -->
+  <section class="section" id="first">
+    <div class="section-head">
+      <div>
+        <div class="section-kicker">First Steps</div>
+        <h2>第一次进入冥界</h2>
+        <p class="section-desc">主世界出生后，先拿到引魂灯，或者直接使用管理员指令进入。</p>
+      </div>
+    </div>
+
+    <div class="split">
+      <div>
+        <div class="card">
+          <h3>进入方式</h3>
+          <p>在聊天栏输入：</p>
+          <div class="cmdbox">
+            <code>/wcnm tp</code>
+            <button class="copy" data-copy="/wcnm tp">复制</button>
+          </div>
+          <p>你会落在出生点鬼门关：<strong>(0.5, 81, 0.5)</strong>。这里是一块灵魂块平台，没有岩顶。</p>
+          <p>返回主世界：</p>
+          <div class="cmdbox">
+            <code>/wcnm return</code>
+            <button class="copy" data-copy="/wcnm return">复制</button>
+          </div>
+        </div>
+
+        <div class="callout">
+          <span class="mark">提示</span>
+          <div>不要在冥界使用 <code class="inline">/tp 0 0 0</code> 或 <code class="inline">0 255 0</code>；前者在地层内，后者在天空。用 <code class="inline">/wcnm tp</code> 最稳。</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>引魂灯使用方式</h3>
+        <ul class="list">
+          <li><strong>普通右键方块：</strong>把引魂灯放置成一盏灯，亮度 15。</li>
+          <li><strong>右键空气：</strong>在冥界与主世界之间传送。</li>
+          <li><strong>潜行 + 右键方块：</strong>不放置，直接传送。</li>
+          <li><strong>返回阳间：</strong>会先加载目标区块并寻找安全落点，不会把你放进虚空。</li>
+        </ul>
+        <p class="section-desc" style="margin-top:12px">合成：4 个哭泣的黑曜石 + 1 个灵魂灯笼。</p>
+      </div>
+    </div>
+
+    <div class="grid three" style="margin-top:18px">
+      <article class="card soft">
+        <h3>新建世界</h3>
+        <p>推荐超平坦以外的主世界类型；冥界维度独立生成，不受主世界地形类型限制。</p>
+      </article>
+      <article class="card soft">
+        <h3>旧存档</h3>
+        <p>旧版本已经生成过的冥界区块不会重写。需要新地表时，换一个新世界或探索未生成区域。</p>
+      </article>
+      <article class="card soft">
+        <h3>权限</h3>
+        <p>单人游戏默认拥有权限。服务器中需要 OP 或等级 2 以上权限才能使用 <code class="inline">/wcnm find</code> 和 <code class="inline">/wcnm ls</code>。</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- COMMANDS -->
+  <section class="section" id="commands">
+    <div class="section-head">
+      <div>
+        <div class="section-kicker">Commands</div>
+        <h2>指令速查</h2>
+        <p class="section-desc">所有查询类指令都需要管理员权限。绿色坐标可以点击传送，<code class="inline">[复制]</code> 可以复制坐标。</p>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>指令</th><th>作用</th><th>说明</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code class="inline">/wcnm tp</code></td><td>进入冥界</td><td>出生点 (0.5, 81, 0.5)；仅玩家</td></tr>
+          <tr><td><code class="inline">/wcnm return</code></td><td>返回主世界</td><td>安全落点，不会掉进虚空；仅玩家</td></tr>
+          <tr><td><code class="inline">/wcnm find</code></td><td>查找最近冥筑</td><td>默认半径 256 格；只输出最近一座</td></tr>
+          <tr><td><code class="inline">/wcnm find &lt;半径&gt;</code></td><td>旧式最近冥筑</td><td>半径 1–4096；如 <code class="inline">/wcnm find 300</code></td></tr>
+          <tr><td><code class="inline">/wcnm find radius &lt;半径&gt;</code></td><td>列出半径内所有冥筑</td><td>1–4096，按距离排序；最多显示 200 条，点击坐标传送</td></tr>
+          <tr><td><code class="inline">/wcnm find structure &lt;结构&gt;</code></td><td>定位指定结构</td><td>搜索半径 8192；英文 ID，支持 Tab 补全</td></tr>
+          <tr><td><code class="inline">/wcnm find biome &lt;群系&gt;</code></td><td>定位群系</td><td>搜索半径 6400；冥界目前只有 wcnm:underworld</td></tr>
+          <tr><td><code class="inline">/wcnm ls</code></td><td>查看当前区块</td><td>群系、地表高度、河流/湖泊、区块内冥筑；需要权限等级 2</td></tr>
+          <tr><td><code class="inline">/wcnm kit</code></td><td>发放建造材料</td><td>引魂灯、冥石、冥石砖、雕纹冥石、幽冥灯、彼岸花</td></tr>
+          <tr><td><code class="inline">/wcnm tud effects off</code></td><td>关闭冥界雾/暗色滤镜</td><td>夜视下不再粉红；默认已关闭</td></tr>
+          <tr><td><code class="inline">/wcnm tud effects on</code></td><td>开启冥界特效</td><td>重新启用雾效</td></tr>
+          <tr><td><code class="inline">/wcnm tud visibleDistance &lt;8-512&gt;</code></td><td>设置个人雾距</td><td>只影响自己，服务端同步到客户端</td></tr>
+          <tr><td><code class="inline">/wcnm tud visibleDistance reset</code></td><td>恢复默认雾距</td><td>只影响自己</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid two" style="margin-top:18px">
+      <div class="card">
+        <h3>结构 ID 示例</h3>
+        <ul class="list gold">
+          <li><code class="inline">ghost-gate</code> · 鬼门关</li>
+          <li><code class="inline">naihe-bridge</code> · 奈何桥</li>
+          <li><code class="inline">fengdu-city</code> · 酆都城</li>
+          <li><code class="inline">reincarnation-well</code> · 轮回井</li>
+          <li><code class="inline">blood-pool</code> · 血池</li>
+        </ul>
+        <p style="margin-top:10px">也支持 <code class="inline">Ghost Gate</code>、<code class="inline">ghost_gate</code>、<code class="inline">wcnm:fengdu_city</code> 或编号 <code class="inline">12</code>。</p>
+      </div>
+
+      <div class="card">
+        <h3>查找示例</h3>
+        <div class="cmdbox">
+          <code>/wcnm find radius 500</code>
+          <button class="copy" data-copy="/wcnm find radius 500">复制</button>
+        </div>
+        <div class="cmdbox">
+          <code>/wcnm find structure fengdu-city</code>
+          <button class="copy" data-copy="/wcnm find structure fengdu-city">复制</button>
+        </div>
+        <div class="cmdbox">
+          <code>/wcnm find biome underworld</code>
+          <button class="copy" data-copy="/wcnm find biome underworld">复制</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <span class="mark">点击传送</span>
+      <div>聊天栏里的绿色坐标可以直接点击传送到对应建筑；旁边的 <code class="inline">[复制]</code> 会复制 <code class="inline">x y z</code>，方便发给朋友或粘贴到指令里。</div>
+    </div>
+  </section>
+
+  <!-- WORLD -->
+  <section class="section" id="world">
+    <div class="section-head">
+      <div>
+        <div class="section-kicker">World &amp; Creatures</div>
+        <h2>地形、地表与生物</h2>
+        <p class="section-desc">冥界不是无限重复的灵魂块。地形、地表材质和生物都被重新配置过。</p>
+      </div>
+    </div>
+
+    <div class="grid two">
+      <article class="card">
+        <h3>地形规则</h3>
+        <ul class="list">
+          <li>使用原版主世界 <strong>NoiseBasedChunkGenerator</strong>，有丘陵、山谷和洞穴。</li>
+          <li>只生成 <code class="inline">wcnm:underworld</code> 一个群系，没有海洋或原版河流群系。</li>
+          <li>湖泊按约 5000×5000 格一个候选点稀疏生成。</li>
+          <li>河流只存在于 <code class="inline">|x|,|z| ≤ 1000</code>，边界前 90 格平滑淡出。</li>
+          <li>河流水面固定在同一高度 y=48；地形深处会形成带天然顶盖的地下暗流，低洼处才露出水面。</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h3>地表材质</h3>
+        <ul class="list gold">
+          <li><strong>灵魂块</strong>：基础地表，带国风鬼面纹样。</li>
+          <li><strong>冥土 / 魂砂砾 / 骨壤</strong>：低饱和度的土壤和砂砾斑块。</li>
+          <li><strong>血苔</strong>：暗红苔藓，形成局部低地。</li>
+          <li><strong>魂石</strong>：带幽蓝魂脉的小型岩石露头。</li>
+          <li><strong>阴草 / 彼岸花</strong>：地表装饰植物。</li>
+        </ul>
+      </article>
+    </div>
+
+    <h3 style="margin-top:30px; margin-bottom:12px">自定义生物</h3>
+    <div class="grid four">
+      <article class="card soft">
+        <h3>游魂</h3>
+        <p><code class="inline">wcnm:wandering_soul</code></p>
+        <p>被动漂浮灵体，围绕玩家缓慢游荡。</p>
+        <div class="cmdbox"><code>/summon wcnm:wandering_soul</code><button class="copy" data-copy="/summon wcnm:wandering_soul">复制</button></div>
+      </article>
+      <article class="card soft">
+        <h3>鬼火</h3>
+        <p><code class="inline">wcnm:ghost_wisp</code></p>
+        <p>更小、更快的幽蓝光点，适合做氛围。</p>
+        <div class="cmdbox"><code>/summon wcnm:ghost_wisp</code><button class="copy" data-copy="/summon wcnm:ghost_wisp">复制</button></div>
+      </article>
+      <article class="card soft red">
+        <h3>阴兵</h3>
+        <p><code class="inline">wcnm:ghost_soldier</code></p>
+        <p>敌对近战亡灵，生命值较高，会主动攻击玩家。</p>
+        <div class="cmdbox"><code>/summon wcnm:ghost_soldier</code><button class="copy" data-copy="/summon wcnm:ghost_soldier">复制</button></div>
+      </article>
+      <article class="card soft red">
+        <h3>冥犬</h3>
+        <p><code class="inline">wcnm:underworld_hound</code></p>
+        <p>快速地面猎食者，会从远处扑向玩家。</p>
+        <div class="cmdbox"><code>/summon wcnm:underworld_hound</code><button class="copy" data-copy="/summon wcnm:underworld_hound">复制</button></div>
+      </article>
+    </div>
+
+    <div class="callout warn">
+      <span class="mark">生存提示</span>
+      <div>阴兵和冥犬会主动索敌。夜晚、洞穴或建筑内部更危险；如果只想看风景，可以用和平模式，或把生成器关闭在配置中调整。</div>
+    </div>
+
+    <div class="callout">
+      <span class="mark">刷怪蛋</span>
+      <div>四种生物都有对应刷怪蛋，统一放在创造模式的 <strong>Underworld / 冥界</strong> 分类中，可以直接取出使用。</div>
+    </div>
+  </section>
+
+  <!-- BLOCKS -->
+  <section class="section" id="blocks">
+    <div class="section-head">
+      <div>
+        <div class="section-kicker">Blocks</div>
+        <h2>方块与物品</h2>
+        <p class="section-desc">所有自定义方块都使用 <code class="inline">wcnm</code> 命名空间贴图，不覆盖原版贴图。</p>
+      </div>
+    </div>
+
+        <div class="callout warn">
+      <span class="mark">创造模式</span>
+      <div>创造物品栏新增 <strong>Underworld / 冥界</strong> 分类，所有自定义方块、引魂灯和四种刷怪蛋都在这里。如果第一页没看到，请点击创造物品栏右上角的翻页箭头。</div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>ID</th><th>名称</th><th>用途</th></tr></thead>
+        <tbody>
+          <tr><td><code class="inline">wcnm:soul_block</code></td><td>灵魂块</td><td>冥界基础地表</td></tr>
+          <tr><td><code class="inline">wcnm:ashen_soil</code></td><td>冥土</td><td>灰黑色土壤斑块</td></tr>
+          <tr><td><code class="inline">wcnm:soul_gravel</code></td><td>魂砂砾</td><td>低饱和紫灰砂砾</td></tr>
+          <tr><td><code class="inline">wcnm:bone_soil</code></td><td>骨壤</td><td>带碎骨的浅灰土壤</td></tr>
+          <tr><td><code class="inline">wcnm:blood_moss</code></td><td>血苔</td><td>暗红苔藓低地</td></tr>
+          <tr><td><code class="inline">wcnm:soul_stone</code></td><td>魂石</td><td>带幽蓝魂脉的岩石</td></tr>
+          <tr><td><code class="inline">wcnm:soul_grass</code></td><td>阴草</td><td>地表十字草</td></tr>
+          <tr><td><code class="inline">wcnm:yin_stone</code></td><td>冥石</td><td>建筑主材</td></tr>
+          <tr><td><code class="inline">wcnm:yin_stone_bricks</code></td><td>冥石砖</td><td>台基、道路、建筑</td></tr>
+          <tr><td><code class="inline">wcnm:chiseled_yin_stone</code></td><td>雕纹冥石</td><td>门楣、屋檐装饰</td></tr>
+          <tr><td><code class="inline">wcnm:soul_lamp</code></td><td>幽冥灯</td><td>亮度 15 的方块灯</td></tr>
+          <tr><td><code class="inline">wcnm:guiding_lantern</code></td><td>引魂灯</td><td>可放置、可传送</td></tr>
+          <tr><td><code class="inline">wcnm:bianhua</code></td><td>彼岸花</td><td>发光地表花</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- MINIMAP -->
+  <section class="section" id="minimap">
+    <div class="section-head">
+      <div>
+        <div class="section-kicker">JourneyMap</div>
+        <h2>JourneyMap 小地图</h2>
+        <p class="section-desc">beta-2.5.3 已用 JourneyMap 替代 Xaero's Minimap，功能更完整，操作更接近常见地图模组。</p>
+      </div>
+    </div>
+
+    <div class="grid three">
+      <article class="card soft">
+        <h3>打开地图</h3>
+        <p>默认按 <code class="inline">J</code> 打开全屏地图。小地图默认显示在屏幕角落。</p>
+      </article>
+      <article class="card soft">
+        <h3>路径点</h3>
+        <p>在全屏地图上右键创建路径点；死亡点会自动记录，方便找回掉落物。</p>
+      </article>
+      <article class="card soft">
+        <h3>洞穴模式</h3>
+        <p>JourneyMap 支持洞穴/地表视图切换，适合在冥界洞穴和建筑内部导航。</p>
+      </article>
+    </div>
+
+    <div class="callout">
+      <span class="mark">按键冲突</span>
+      <div>如果 <code class="inline">J</code> 被其他模组占用，打开「选项 → 控制 → 按键绑定」，搜索 JourneyMap 后重新设置。</div>
+    </div>
+  </section>
+
+  <!-- EFFECTS -->
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <div class="section-kicker">Atmosphere</div>
+        <h2>雾效、亮度与画面</h2>
+        <p class="section-desc">beta-2.5.3 的默认环境光已调高到 0.55，雾距 224。正常探索不需要夜视。</p>
+      </div>
+    </div>
+
+    <div class="grid two">
+      <div class="card">
+        <h3>如果画面仍然偏暗</h3>
+        <ul class="list">
+          <li>确认没有开启「阴间特效」：<code class="inline">/wcnm tud effects off</code></li>
+          <li>检查是否启用了光影；Complementary 的夜晚/洞穴效果可能再次压暗画面。</li>
+          <li>在视频设置中调高亮度，或使用夜视。</li>
+          <li>不要在旧版本中测试亮度；beta-2.5.3 才包含最新的环境光调整。</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>雾距指令</h3>
+        <div class="cmdbox"><code>/wcnm tud visibleDistance 128</code><button class="copy" data-copy="/wcnm tud visibleDistance 128">复制</button></div>
+        <div class="cmdbox"><code>/wcnm tud visibleDistance reset</code><button class="copy" data-copy="/wcnm tud visibleDistance reset">复制</button></div>
+        <p>雾距只影响自己的客户端，不会改变服务器或其他玩家的画面。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROADMAP -->
+  <section class="section" id="roadmap">
+    <div class="section-head">
+      <div>
+        <div class="section-kicker">Roadmap · 后续开发计划</div>
+        <h2>下一步：从“可探索”走向“可游玩”</h2>
+        <p class="section-desc">
+          下面是根据当前 beta-2.5.3 状态整理的计划。优先顺序会随玩家反馈、兼容性问题和实际测试调整；
+          阶段名称与目标用于说明方向，不代表固定发布日期。
+        </p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <span class="mark">状态</span>
+      <div>
+        <span class="badge done">已完成</span> 当前基线 ·
+        <span class="badge next">下一阶段</span> 优先开发 ·
+        <span class="badge plan">计划中</span> 待排期
+      </div>
+    </div>
+
+    <div class="roadmap">
+      <article class="phase">
+        <div>
+          <div class="phase-name">beta-2.6</div>
+          <div class="phase-sub">CONTENT DENSITY</div>
+          <span class="badge next">下一阶段</span>
+        </div>
+        <div>
+          <h3>沉入冥界 · 让建筑值得走进去</h3>
+          <p>把“能看到 50 座建筑”推进到“每座建筑都有探索理由”。</p>
+          <ul class="task-list">
+            <li>为 50 座冥筑补充室内细节、分区和可交互陈设，避免只有外壳。</li>
+            <li>建立建筑战利品表：冥币、材料、灯、稀有装饰和探索奖励。</li>
+            <li>优化建筑与斜坡、洞穴、河流的贴合，减少悬空或半埋。</li>
+            <li>继续打磨地下暗流、湖泊露头和河岸过渡，让水系更像自然地貌。</li>
+            <li>增加 2–3 种与环境互动的生物或氛围实体，并补齐刷怪规则。</li>
+            <li>把区块后处理拆分为可缓存的阶段，降低首次生成卡顿。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="phase">
+        <div>
+          <div class="phase-name">beta-2.7</div>
+          <div class="phase-sub">PROGRESSION</div>
+          <span class="badge plan">计划中</span>
+        </div>
+        <div>
+          <h3>阴司秩序 · 目标、交易与 Boss</h3>
+          <p>给探索加上阶段目标，让玩家从“观光”进入“成长”。</p>
+          <ul class="task-list">
+            <li>加入“阴司执照”式引导任务：进入、寻找建筑、收集材料、完成仪式。</li>
+            <li>设计冥币与建筑商人 / 鬼市交易，消耗探索所得而不是无限创造。</li>
+            <li>加入 1–2 个可重复挑战的 Boss（如判官 / 鬼王），配套场地、阶段和掉落。</li>
+            <li>给引魂灯增加升级分支：更安全的返回、定位、临时庇护等功能。</li>
+            <li>加入进度与统计：已发现建筑、已探索群系、已收集物品。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="phase">
+        <div>
+          <div class="phase-name">beta-2.8</div>
+          <div class="phase-sub">ATMOSPHERE &amp; POLISH</div>
+          <span class="badge plan">计划中</span>
+        </div>
+        <div>
+          <h3>阴阳之间 · 氛围、兼容与可维护性</h3>
+          <p>让世界更完整，也让整合包更容易长期维护。</p>
+          <ul class="task-list">
+            <li>补充环境音、建筑音效、粒子与天气变化，强化冥界氛围。</li>
+            <li>统一光影下的雾、天空和发光材质表现，修复夜视偏色。</li>
+            <li>增加英文语言文件与配置说明，降低非中文玩家门槛。</li>
+            <li>补充服务端配置：生物密度、建筑密度、传送冷却、雾效权限。</li>
+            <li>建立自动自检：跨区块建筑、鬼门关、告示牌、返回点和关键方块。</li>
+            <li>整理可选模组清单，控制整合包体积和启动时间。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="phase">
+        <div>
+          <div class="phase-name">3.0</div>
+          <div class="phase-sub">FULL RELEASE</div>
+          <span class="badge plan">长期目标</span>
+        </div>
+        <div>
+          <h3>酆都完整版 · 一个可以玩很久的冥界</h3>
+          <p>在内容、平衡、兼容和文档都稳定后，发布完整版本。</p>
+          <ul class="task-list">
+            <li>完整主线和支线，让 50 座建筑成为叙事节点而不是随机地标。</li>
+            <li>每个建筑原型拥有独特外观、功能或挑战，而不是共享同一套外壳。</li>
+            <li>整理存档迁移、版本升级、服务端部署和故障恢复流程。</li>
+            <li>完成性能基线、多人模式测试和主流光影兼容测试。</li>
+            <li>发布稳定版文档、模组清单、更新日志和可复现构建。</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+
+    <div class="grid two" style="margin-top:18px">
+      <article class="card">
+        <h3>技术债与质量目标</h3>
+        <ul class="list">
+          <li>把“跨区块生成”纳入自动化测试，避免鬼门关这类边界问题复发。</li>
+          <li>为建筑站点增加坡度与洞穴检测，明确“填平 / 架空 / 嵌入”的视觉规则。</li>
+          <li>减少后处理重复采样，记录区块生成耗时并做基准。</li>
+          <li>所有自定义 ID、语言键和告示牌文本集中管理，避免版本漂移。</li>
+          <li>为旧存档建立迁移清单：哪些内容可补，哪些必须新世界。</li>
+        </ul>
+      </article>
+      <article class="card gold">
+        <h3>如何参与开发</h3>
+        <ul class="list gold">
+          <li>在 GitHub Issues 提交可复现问题、截图和日志。</li>
+          <li>测试新构建，重点反馈建筑生成、河流、性能和多人兼容。</li>
+          <li>提交建筑、贴图、音效或文档建议；大型改动先开 Issue 讨论。</li>
+          <li>如果只想体验，使用桌面上的 beta-2.5.3 整合包即可。</li>
+        </ul>
+        <p style="margin-top:12px">计划是活的：被验证的需求会提前，风险高或收益低的内容会推迟。</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- GITHUB -->
+  <section class="section" id="github">
+    <div class="section-head">
+      <div>
+        <div class="section-kicker">Open Source · Source of Truth</div>
+        <h2>GitHub 仓库</h2>
+        <p class="section-desc">
+          源码、版本标签、问题跟踪和后续开发都会以 GitHub 仓库为准。下载整合包前，也可以先查看提交记录和最新说明。
+        </p>
+      </div>
+    </div>
+
+    <div class="repo-card">
+      <div class="eyebrow">lamioIsNew / DeepUnderWorld</div>
+      <h3>DeepUnderWorld · 阴森冥界 / The Dark UnderWorld</h3>
+      <p>Fabric 26.3 冥界维度模组与整合包源码。当前版本 beta-2.5.3，标签 <code class="inline">vbeta-2.5.3</code>。</p>
+      <a class="repo-url" href="https://github.com/lamioIsNew/DeepUnderWorld" target="_blank" rel="noopener">https://github.com/lamioIsNew/DeepUnderWorld</a>
+      <div class="repo-actions">
+        <a class="btn primary" href="https://github.com/lamioIsNew/DeepUnderWorld" target="_blank" rel="noopener">打开仓库</a>
+        <a class="btn" href="https://github.com/lamioIsNew/DeepUnderWorld/issues" target="_blank" rel="noopener">提交 Issue</a>
+        <a class="btn" href="https://github.com/lamioIsNew/DeepUnderWorld/releases" target="_blank" rel="noopener">查看 Releases</a>
+      </div>
+    </div>
+
+    <div class="grid two" style="margin-top:18px">
+      <article class="card">
+        <h3>仓库里有什么</h3>
+        <ul class="list">
+          <li><code class="inline">src/main/java/com/wcnm</code>：模组主代码。</li>
+          <li><code class="inline">src/main/resources</code>：维度、群系、噪声设置、语言与 <code class="inline">wcnm</code> 材质。</li>
+          <li><code class="inline">modpack/</code>：整合包构建、资源生成、PCL2 部署和模组清单工具。</li>
+          <li><code class="inline">build_and_deploy.bat</code>：一键生成资源、构建 jar、打包并部署。</li>
+          <li><code class="inline">README.md</code> / <code class="inline">MODLIST.md</code>：开发说明与当前 47 个模组清单。</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>本地构建</h3>
+        <p>需要 JDK 25 和 Gradle Wrapper。只构建模组：</p>
+        <div class="cmdbox"><code>gradlew.bat build</code><button class="copy" data-copy="gradlew.bat build">复制</button></div>
+        <p style="margin-top:10px">构建并部署整合包到本机 PCL2：</p>
+        <div class="cmdbox"><code>build_and_deploy.bat</code><button class="copy" data-copy="build_and_deploy.bat">复制</button></div>
+        <p style="margin-top:10px">产物：<code class="inline">build/libs/WCNM-Alpha-1.0.0.jar</code>；当前源码许可为 CC0-1.0。</p>
+      </article>
+    </div>
+
+    <div class="callout warn">
+      <span class="mark">反馈模板</span>
+      <div>
+        提交问题时请尽量附上：游戏版本、整合包版本、是否单人/服务器、复现步骤、坐标与种子（如可公开）、
+        <code class="inline">latest.log</code> 或崩溃报告，以及能说明问题的截图。这样修复速度会快很多。
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="section-head">
+      <div>
+        <div class="section-kicker">Troubleshooting</div>
+        <h2>常见问题</h2>
+        <p class="section-desc">先确认版本是 beta-2.5.3，再按下面的顺序排查。</p>
+      </div>
+    </div>
+
+    <details>
+      <summary>PCL2 导入后没有出现版本</summary>
+      <div class="detail-body">
+        <p>完全关闭 PCL2 再重新打开，然后查看「版本列表」。如果仍然没有，检查导入时是否选择了正确的 <code class="inline">.mrpack</code> 文件，以及 PCL2 是否是最新版本。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>启动时报 Java 版本错误</summary>
+      <div class="detail-body">
+        <p>Minecraft 26.3 需要 <strong>Java 25</strong>。在 PCL2 的「设置 → Java」中选择 Java 25；不要选择 Java 17、Java 21 或系统自带的旧 Java。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>在线版导入时卡住或缺少模组</summary>
+      <div class="detail-body">
+        <p>在线版需要访问 Modrinth。网络不稳定时请改用离线版 <code class="inline">-offline.mrpack</code>；它已经包含全部 47 个模组，不依赖在线下载。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>进入冥界后看不到建筑，或者地形还是旧样子</summary>
+      <div class="detail-body">
+        <p>旧存档已经生成过的区块不会自动重写。请创建新世界，或前往从未加载过的区域。然后用 <code class="inline">/wcnm find radius 500</code> 查找附近的冥筑。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>引魂灯放出来是紫色/黑色方块或没有模型</summary>
+      <div class="detail-body">
+        <p>beta-2.5.3 已重绘引魂灯的方块贴图，修复了使用物品图标作为方块贴图导致的渲染问题。请确认启动的是 beta-2.5.3，而不是 2.4.1 或更早版本。已经放置的引魂灯在更新后会自动使用新贴图。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>引魂灯把我放进虚空</summary>
+      <div class="detail-body">
+        <p>beta-2.5.3 的返回逻辑会先加载目标区块、读取真实地表高度，并检查头部空间。如果仍然出现异常，请记录主世界出生点坐标和版本号，并提供日志。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>世界生成时卡顿</summary>
+      <div class="detail-body">
+        <p>冥界使用完整主世界噪声并叠加建筑、河流、湖泊后处理，首次生成区块时会有短暂卡顿。可以降低渲染距离、关闭光影、分配 4–6 GB 内存；不要使用过高的模拟距离。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>小地图不是 JourneyMap / 同时出现两个小地图</summary>
+      <div class="detail-body">
+        <p>beta-2.5.3 只包含 JourneyMap。如果同时看到 Xaero's Minimap，说明你启动的是旧版本实例，或手动复制了旧 mods。请使用 beta-2.5.3 实例，并检查 mods 文件夹中是否还有 <code class="inline">xaerominimap</code>。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>游戏里太暗，或者夜视下全是粉红</summary>
+      <div class="detail-body">
+        <p>先执行 <code class="inline">/wcnm tud effects off</code>。如果仍然暗，检查光影和视频亮度设置。beta-2.5.3 的基础环境光已经提高；旧版本没有这些调整。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>服务器里 /wcnm find 没有反应</summary>
+      <div class="detail-body">
+        <p>查询指令需要 OP 或权限等级 2。让服主给你权限，或使用管理员账号执行。生存玩家仍然可以使用引魂灯和普通传送。</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="wrap">
+      <div>
+        <strong>Deep UnderWorld beta-2.5.3</strong><br>
+        WCNM-Alpha · 阴森冥界 · Fabric 26.3 · 47 mods<br>
+        指南版本：2026-10-25 · 对应 beta-2.5.3
+      </div>
+      <div>
+        推荐启动器：PCL2 · Java 25<br>
+        小地图：JourneyMap 26.3-6.0.10<br>
+        <a href="https://github.com/lamioIsNew/DeepUnderWorld" target="_blank" rel="noopener">GitHub 仓库</a>
+        · <a href="#top">返回顶部 ↑</a>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<button class="to-top" id="toTop" type="button" aria-label="返回顶部">↑</button>
+<div class="toast" id="toast" role="status" aria-live="polite">已复制</div>
+
+<script>
+  (() => {
+    const toast = document.getElementById('toast');
+    let toastTimer = 0;
+
+    document.querySelectorAll('[data-copy]').forEach((button) => {
+      button.addEventListener('click', async () => {
+        const text = button.getAttribute('data-copy') || '';
+        try {
+          await navigator.clipboard.writeText(text);
+          showToast('已复制：' + text);
+        } catch (error) {
+          const area = document.createElement('textarea');
+          area.value = text;
+          area.style.position = 'fixed';
+          area.style.opacity = '0';
+          document.body.appendChild(area);
+          area.select();
+          document.execCommand('copy');
+          area.remove();
+          showToast('已复制：' + text);
+        }
+      });
+    });
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 1600);
+    }
+
+    const toTop = document.getElementById('toTop');
+    toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    const onScroll = () => {
+      toTop.classList.toggle('show', window.scrollY > 560);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    const links = [...document.querySelectorAll('.nav a')];
+    const sections = links
+      .map((link) => document.querySelector(link.getAttribute('href')))
+      .filter(Boolean);
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (!visible) return;
+        links.forEach((link) => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + visible.target.id);
+        });
+      }, { rootMargin: '-20% 0px -65% 0px', threshold: [0.05, 0.2, 0.5] });
+
+      sections.forEach((section) => observer.observe(section));
+    }
+  })();
+</script>
+</body>
+</html>
