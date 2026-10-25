@@ -1112,16 +1112,18 @@
           <tr><th>指令</th><th>作用</th><th>说明</th></tr>
         </thead>
         <tbody>
-          <tr><td><code class="inline">/wcnm tp</code></td><td>进入冥界</td><td>出生点 (0.5, 81, 0.5)</td></tr>
-          <tr><td><code class="inline">/wcnm return</code></td><td>返回主世界</td><td>安全落点，不会掉进虚空</td></tr>
-          <tr><td><code class="inline">/wcnm find radius 300</code></td><td>列出半径内所有冥筑</td><td>按距离排序，点击坐标传送</td></tr>
-          <tr><td><code class="inline">/wcnm find structure ghost-gate</code></td><td>定位指定结构</td><td>英文 ID，支持 Tab 补全</td></tr>
-          <tr><td><code class="inline">/wcnm find biome underworld</code></td><td>定位群系</td><td>冥界目前只有 wcnm:underworld</td></tr>
-          <tr><td><code class="inline">/wcnm ls</code></td><td>查看当前区块</td><td>群系、地表高度、河流/湖泊、区块内冥筑</td></tr>
+          <tr><td><code class="inline">/wcnm tp</code></td><td>进入冥界</td><td>出生点 (0.5, 81, 0.5)；仅玩家</td></tr>
+          <tr><td><code class="inline">/wcnm return</code></td><td>返回主世界</td><td>安全落点，不会掉进虚空；仅玩家</td></tr>
+          <tr><td><code class="inline">/wcnm find</code></td><td>查找最近冥筑</td><td>默认半径 256 格；只输出最近一座</td></tr>
+          <tr><td><code class="inline">/wcnm find &lt;半径&gt;</code></td><td>旧式最近冥筑</td><td>半径 1–4096；如 <code class="inline">/wcnm find 300</code></td></tr>
+          <tr><td><code class="inline">/wcnm find radius &lt;半径&gt;</code></td><td>列出半径内所有冥筑</td><td>1–4096，按距离排序；最多显示 200 条，点击坐标传送</td></tr>
+          <tr><td><code class="inline">/wcnm find structure &lt;结构&gt;</code></td><td>定位指定结构</td><td>搜索半径 8192；英文 ID，支持 Tab 补全</td></tr>
+          <tr><td><code class="inline">/wcnm find biome &lt;群系&gt;</code></td><td>定位群系</td><td>搜索半径 6400；冥界目前只有 wcnm:underworld</td></tr>
+          <tr><td><code class="inline">/wcnm ls</code></td><td>查看当前区块</td><td>群系、地表高度、河流/湖泊、区块内冥筑；需要权限等级 2</td></tr>
           <tr><td><code class="inline">/wcnm kit</code></td><td>发放建造材料</td><td>引魂灯、冥石、冥石砖、雕纹冥石、幽冥灯、彼岸花</td></tr>
           <tr><td><code class="inline">/wcnm tud effects off</code></td><td>关闭冥界雾/暗色滤镜</td><td>夜视下不再粉红；默认已关闭</td></tr>
           <tr><td><code class="inline">/wcnm tud effects on</code></td><td>开启冥界特效</td><td>重新启用雾效</td></tr>
-          <tr><td><code class="inline">/wcnm tud visibleDistance 128</code></td><td>设置个人雾距</td><td>范围 8–512</td></tr>
+          <tr><td><code class="inline">/wcnm tud visibleDistance &lt;8-512&gt;</code></td><td>设置个人雾距</td><td>只影响自己，服务端同步到客户端</td></tr>
           <tr><td><code class="inline">/wcnm tud visibleDistance reset</code></td><td>恢复默认雾距</td><td>只影响自己</td></tr>
         </tbody>
       </table>
