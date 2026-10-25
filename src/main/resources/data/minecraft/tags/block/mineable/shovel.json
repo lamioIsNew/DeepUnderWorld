@@ -1,6 +1,10 @@
 {
   "replace": false,
   "values": [
-    "wcnm:soul_block"
+    "wcnm:soul_block",
+    "wcnm:ashen_soil",
+    "wcnm:soul_gravel",
+    "wcnm:bone_soil",
+    "wcnm:blood_moss"
   ]
 }

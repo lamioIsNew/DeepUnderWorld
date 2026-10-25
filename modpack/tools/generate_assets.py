@@ -173,6 +173,145 @@ def make_soul_block() -> Image.Image:
     return im
 
 
+def make_ashen_soil() -> Image.Image:
+    rng = random.Random(0xA5E17)
+    im = img(16, 16, (32, 29, 30, 255))
+    for _ in range(90):
+        px(im, rng.randrange(16), rng.randrange(16),
+           rnd_color(rng, [(40, 37, 38, 255), (26, 23, 24, 255), (48, 44, 43, 255), (22, 19, 21, 255)]))
+    for _ in range(14):
+        px(im, rng.randrange(16), rng.randrange(16), (96, 91, 84, 255))
+    for _ in range(5):
+        x, y = rng.randrange(16), rng.randrange(16)
+        for _ in range(rng.randrange(2, 5)):
+            px(im, x, y, (18, 15, 16, 255))
+            x = (x + rng.choice([-1, 1])) % 16
+            y = (y + 1) % 16
+    return im
+
+
+def make_soul_gravel() -> Image.Image:
+    rng = random.Random(0x6A4E1)
+    im = img(16, 16, (31, 26, 35, 255))
+    for _ in range(75):
+        px(im, rng.randrange(16), rng.randrange(16),
+           rnd_color(rng, [(38, 32, 43, 255), (25, 21, 29, 255), (47, 39, 53, 255), (20, 17, 24, 255)]))
+    for _ in range(12):
+        x, y = rng.randrange(15), rng.randrange(15)
+        c = rnd_color(rng, [(62, 52, 71, 255), (46, 39, 54, 255), (74, 62, 84, 255)])
+        px(im, x, y, c)
+        px(im, x + 1, y, c)
+        px(im, x, y + 1, (22, 18, 27, 255))
+    for _ in range(4):
+        px(im, rng.randrange(16), rng.randrange(16), (92, 180, 170, 255))
+    return im
+
+
+def make_bone_soil() -> Image.Image:
+    rng = random.Random(0xB0E5)
+    im = img(16, 16, (37, 33, 31, 255))
+    for _ in range(80):
+        px(im, rng.randrange(16), rng.randrange(16),
+           rnd_color(rng, [(44, 39, 36, 255), (30, 27, 26, 255), (52, 46, 41, 255)]))
+    for _ in range(18):
+        x, y = rng.randrange(16), rng.randrange(16)
+        length = rng.randrange(1, 4)
+        horizontal = rng.random() < 0.5
+        for i in range(length):
+            px(im, x + (i if horizontal else 0), y + (0 if horizontal else i), rnd_color(rng, [BONE, (172, 160, 140, 255)]))
+    for _ in range(5):
+        px(im, rng.randrange(16), rng.randrange(16), (72, 64, 55, 255))
+    return im
+
+
+def make_blood_moss() -> Image.Image:
+    rng = random.Random(0xB100D)
+    im = img(16, 16, (39, 12, 17, 255))
+    for _ in range(85):
+        px(im, rng.randrange(16), rng.randrange(16),
+           rnd_color(rng, [(52, 15, 21, 255), (31, 8, 13, 255), (68, 18, 26, 255), (24, 7, 11, 255)]))
+    for _ in range(8):
+        x, y = rng.randrange(16), rng.randrange(16)
+        for _ in range(rng.randrange(3, 7)):
+            px(im, x, y, rnd_color(rng, [(96, 19, 30, 255), (126, 27, 39, 255), (73, 14, 23, 255)]))
+            x = (x + rng.choice([-1, 0, 1])) % 16
+            y = (y + rng.choice([-1, 0, 1])) % 16
+    for _ in range(3):
+        px(im, rng.randrange(16), rng.randrange(16), (96, 220, 190, 255))
+    return im
+
+
+def make_soul_stone() -> Image.Image:
+    rng = random.Random(0x50A15)
+    im = stone_base(rng, (24, 24, 34))
+    for _ in range(5):
+        x, y = rng.randrange(16), rng.randrange(16)
+        for _ in range(rng.randrange(4, 8)):
+            px(im, x, y, rnd_color(rng, [CYAN2, (46, 150, 140, 255), (102, 238, 220, 255)]))
+            x = (x + rng.choice([-1, 0, 1])) % 16
+            y = (y + rng.choice([-1, 0, 1])) % 16
+    return im
+
+
+def make_soul_grass() -> Image.Image:
+    rng = random.Random(0x6A55)
+    im = img(16, 16, CLEAR)
+    blades = [(3, 12), (5, 10), (7, 7), (9, 8), (11, 11), (13, 13), (8, 5)]
+    for x, top in blades:
+        lean = rng.choice([-1, 0, 1])
+        for y in range(15, top - 1, -1):
+            shade = (40 + (15 - y) * 3, 90 + (15 - y) * 5, 78 + (15 - y) * 4, 255)
+            px(im, x, y, shade)
+            if y % 3 == 0:
+                px(im, (x + lean) % 16, y, (26, 62, 56, 255))
+        if top < 10:
+            px(im, (x + lean) % 16, top - 1, (120, 230, 210, 255))
+    return im
+
+
+def make_wandering_soul_texture() -> Image.Image:
+    rng = random.Random(0x50F1)
+    base = (82, 108, 112, 255)
+    im = img(64, 64, base)
+    for _ in range(900):
+        px(im, rng.randrange(64), rng.randrange(64),
+           rnd_color(rng, [(96, 132, 134, 255), (62, 82, 89, 255), (108, 152, 150, 255), (48, 66, 73, 255)]))
+    for _ in range(34):
+        x, y = rng.randrange(64), rng.randrange(64)
+        width = rng.randrange(1, 4)
+        for i in range(rng.randrange(2, 6)):
+            px(im, x + i, y, (36, 50, 57, 255))
+            px(im, x + i, (y + 1) % 64, (46, 64, 69, 255))
+    # Partial hood and face on the top-left head region of the vex UV layout.
+    for x in range(8, 16):
+        for y in range(8, 16):
+            if 8 < x < 15 and 8 < y < 15:
+                px(im, x, y, (28, 40, 46, 255))
+    for x, y in [(9, 11), (10, 11), (13, 11), (14, 11), (9, 12), (14, 12)]:
+        px(im, x, y, (150, 255, 240, 255))
+    px(im, 11, 14, (18, 26, 31, 255))
+    px(im, 12, 14, (18, 26, 31, 255))
+    return im
+
+
+def make_ghost_wisp_texture() -> Image.Image:
+    rng = random.Random(0x1A5E)
+    base = (28, 96, 94, 255)
+    im = img(64, 64, base)
+    for y in range(64):
+        for x in range(64):
+            d = math.sqrt((x - 32) ** 2 + (y - 32) ** 2)
+            glow = max(0.0, 1.0 - d / 52.0)
+            c = (24 + int(28 * glow), 86 + int(130 * glow), 82 + int(120 * glow), 255)
+            px(im, x, y, c)
+    for _ in range(420):
+        px(im, rng.randrange(64), rng.randrange(64),
+           rnd_color(rng, [(40, 150, 140, 255), (80, 230, 210, 255), (18, 70, 72, 255), (210, 255, 240, 255)]))
+    for x, y in [(31, 30), (32, 30), (31, 31), (32, 31)]:
+        px(im, x, y, (235, 255, 248, 255))
+    return im
+
+
 def make_soul_lamp() -> Image.Image:
     im = img(16, 16, (10, 7, 13, 255))
     for y in range(16):
@@ -402,17 +541,34 @@ def write_json(path: Path, data: dict) -> None:
 
 
 def write_models() -> None:
-    simple = ["soul_block", "yin_stone", "yin_stone_bricks", "chiseled_yin_stone", "soul_lamp"]
+    simple = [
+        "soul_block",
+        "ashen_soil",
+        "soul_gravel",
+        "bone_soil",
+        "blood_moss",
+        "soul_stone",
+        "yin_stone",
+        "yin_stone_bricks",
+        "chiseled_yin_stone",
+        "soul_lamp",
+    ]
 
     # Minecraft 26.3 uses the item-model-definition system: an item must have
     # assets/<namespace>/items/<id>.json, otherwise it has no inventory/hand model.
     item_definitions = {
         "soul_block": "wcnm:block/soul_block",
+        "ashen_soil": "wcnm:block/ashen_soil",
+        "soul_gravel": "wcnm:block/soul_gravel",
+        "bone_soil": "wcnm:block/bone_soil",
+        "blood_moss": "wcnm:block/blood_moss",
+        "soul_stone": "wcnm:block/soul_stone",
         "yin_stone": "wcnm:block/yin_stone",
         "yin_stone_bricks": "wcnm:block/yin_stone_bricks",
         "chiseled_yin_stone": "wcnm:block/chiseled_yin_stone",
         "soul_lamp": "wcnm:block/soul_lamp",
         "bianhua": "wcnm:item/bianhua",
+        "soul_grass": "wcnm:item/soul_grass",
         "guiding_lantern": "wcnm:item/guiding_lantern",
     }
 
@@ -441,6 +597,29 @@ def write_models() -> None:
         "parent": "minecraft:item/generated",
         "textures": {"layer0": "wcnm:block/bianhua"},
     })
+    write_json(ASSETS / "blockstates" / "soul_grass.json", {"variants": {"": {"model": "wcnm:block/soul_grass"}}})
+    write_json(ASSETS / "models" / "block" / "soul_grass.json", {
+        "parent": "minecraft:block/cross",
+        "textures": {"cross": "wcnm:block/soul_grass"},
+    })
+    write_json(ASSETS / "models" / "item" / "soul_grass.json", {
+        "parent": "minecraft:item/generated",
+        "textures": {"layer0": "wcnm:block/soul_grass"},
+    })
+    write_json(ASSETS / "blockstates" / "guiding_lantern.json", {
+        "variants": {
+            "hanging=false": {"model": "wcnm:block/guiding_lantern"},
+            "hanging=true": {"model": "wcnm:block/guiding_lantern_hanging"},
+        }
+    })
+    write_json(ASSETS / "models" / "block" / "guiding_lantern.json", {
+        "parent": "minecraft:block/template_lantern",
+        "textures": {"lantern": "wcnm:item/guiding_lantern"},
+    })
+    write_json(ASSETS / "models" / "block" / "guiding_lantern_hanging.json", {
+        "parent": "minecraft:block/template_hanging_lantern",
+        "textures": {"lantern": "wcnm:item/guiding_lantern"},
+    })
     write_json(ASSETS / "models" / "item" / "guiding_lantern.json", {
         "parent": "minecraft:item/generated",
         "textures": {"layer0": "wcnm:item/guiding_lantern"},
@@ -448,13 +627,28 @@ def write_models() -> None:
 
     write_json(ASSETS / "lang" / "zh_cn.json", {
         "block.wcnm.soul_block": "灵魂块",
+        "block.wcnm.ashen_soil": "冥土",
+        "block.wcnm.soul_gravel": "魂砂砾",
+        "block.wcnm.bone_soil": "骨壤",
+        "block.wcnm.blood_moss": "血苔",
+        "block.wcnm.soul_stone": "魂石",
+        "block.wcnm.soul_grass": "阴草",
         "block.wcnm.yin_stone": "冥石",
         "block.wcnm.yin_stone_bricks": "冥石砖",
         "block.wcnm.chiseled_yin_stone": "雕纹冥石",
         "block.wcnm.soul_lamp": "幽冥灯",
+        "block.wcnm.guiding_lantern": "引魂灯",
         "block.wcnm.bianhua": "彼岸花",
+        "entity.wcnm.wandering_soul": "游魂",
+        "entity.wcnm.ghost_wisp": "鬼火",
         "item.wcnm.guiding_lantern": "引魂灯",
         "item.wcnm.soul_block": "灵魂块",
+        "item.wcnm.ashen_soil": "冥土",
+        "item.wcnm.soul_gravel": "魂砂砾",
+        "item.wcnm.bone_soil": "骨壤",
+        "item.wcnm.blood_moss": "血苔",
+        "item.wcnm.soul_stone": "魂石",
+        "item.wcnm.soul_grass": "阴草",
         "item.wcnm.yin_stone": "冥石",
         "item.wcnm.yin_stone_bricks": "冥石砖",
         "item.wcnm.chiseled_yin_stone": "雕纹冥石",
@@ -463,13 +657,28 @@ def write_models() -> None:
     })
     write_json(ASSETS / "lang" / "en_us.json", {
         "block.wcnm.soul_block": "Soul Block",
+        "block.wcnm.ashen_soil": "Ashen Soil",
+        "block.wcnm.soul_gravel": "Soul Gravel",
+        "block.wcnm.bone_soil": "Bone Soil",
+        "block.wcnm.blood_moss": "Blood Moss",
+        "block.wcnm.soul_stone": "Soul Stone",
+        "block.wcnm.soul_grass": "Soul Grass",
         "block.wcnm.yin_stone": "Yin Stone",
         "block.wcnm.yin_stone_bricks": "Yin Stone Bricks",
         "block.wcnm.chiseled_yin_stone": "Chiseled Yin Stone",
         "block.wcnm.soul_lamp": "Soul Lamp",
+        "block.wcnm.guiding_lantern": "Guiding Lantern",
         "block.wcnm.bianhua": "Bianhua",
+        "entity.wcnm.wandering_soul": "Wandering Soul",
+        "entity.wcnm.ghost_wisp": "Ghost Wisp",
         "item.wcnm.guiding_lantern": "Guiding Lantern",
         "item.wcnm.soul_block": "Soul Block",
+        "item.wcnm.ashen_soil": "Ashen Soil",
+        "item.wcnm.soul_gravel": "Soul Gravel",
+        "item.wcnm.bone_soil": "Bone Soil",
+        "item.wcnm.blood_moss": "Blood Moss",
+        "item.wcnm.soul_stone": "Soul Stone",
+        "item.wcnm.soul_grass": "Soul Grass",
         "item.wcnm.yin_stone": "Yin Stone",
         "item.wcnm.yin_stone_bricks": "Yin Stone Bricks",
         "item.wcnm.chiseled_yin_stone": "Chiseled Yin Stone",
@@ -500,15 +709,24 @@ def main() -> None:
 
     block_tex = ASSETS / "textures" / "block"
     item_tex = ASSETS / "textures" / "item"
+    entity_tex = ASSETS / "textures" / "entity"
 
     # Only custom namespace assets are generated.  Vanilla textures are never modified.
     save(make_soul_block(), block_tex / "soul_block.png")
+    save(make_ashen_soil(), block_tex / "ashen_soil.png")
+    save(make_soul_gravel(), block_tex / "soul_gravel.png")
+    save(make_bone_soil(), block_tex / "bone_soil.png")
+    save(make_blood_moss(), block_tex / "blood_moss.png")
+    save(make_soul_stone(), block_tex / "soul_stone.png")
+    save(make_soul_grass(), block_tex / "soul_grass.png")
     save(make_yin_stone(), block_tex / "yin_stone.png")
     save(make_bricks(), block_tex / "yin_stone_bricks.png")
     save(make_chiseled(), block_tex / "chiseled_yin_stone.png")
     save(make_soul_lamp(), block_tex / "soul_lamp.png")
     save(make_bianhua(), block_tex / "bianhua.png")
     save(make_guiding_lantern(), item_tex / "guiding_lantern.png")
+    save(make_wandering_soul_texture(), entity_tex / "wandering_soul.png")
+    save(make_ghost_wisp_texture(), entity_tex / "ghost_wisp.png")
 
     print(f"assets  -> {ASSETS}")
 

@@ -19,11 +19,18 @@ public final class WcnmItems {
 	public static final Item CHISELED_YIN_STONE = blockItem("chiseled_yin_stone", WcnmBlocks.CHISELED_YIN_STONE);
 	public static final Item SOUL_LAMP = blockItem("soul_lamp", WcnmBlocks.SOUL_LAMP);
 	public static final Item BIANHUA = blockItem("bianhua", WcnmBlocks.BIANHUA);
+	public static final Item ASHEN_SOIL = blockItem("ashen_soil", WcnmBlocks.ASHEN_SOIL);
+	public static final Item SOUL_GRAVEL = blockItem("soul_gravel", WcnmBlocks.SOUL_GRAVEL);
+	public static final Item BONE_SOIL = blockItem("bone_soil", WcnmBlocks.BONE_SOIL);
+	public static final Item BLOOD_MOSS = blockItem("blood_moss", WcnmBlocks.BLOOD_MOSS);
+	public static final Item SOUL_STONE = blockItem("soul_stone", WcnmBlocks.SOUL_STONE);
+	public static final Item SOUL_GRASS = blockItem("soul_grass", WcnmBlocks.SOUL_GRASS);
 
 	/** 引魂灯：右键在冥界与主世界之间往返。 */
 	public static final Item GUIDING_LANTERN = register(
 		"guiding_lantern",
-		properties -> new GuidingLanternItem(properties.stacksTo(1).rarity(Rarity.EPIC))
+		properties -> new GuidingLanternItem(WcnmBlocks.GUIDING_LANTERN,
+			properties.stacksTo(1).rarity(Rarity.EPIC))
 	);
 
 	private WcnmItems() {

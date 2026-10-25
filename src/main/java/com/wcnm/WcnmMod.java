@@ -3,8 +3,10 @@ package com.wcnm;
 import com.wcnm.command.WcnmCommands;
 import com.wcnm.registry.WcnmBlocks;
 import com.wcnm.registry.WcnmCreativeTabs;
+import com.wcnm.registry.WcnmEntities;
 import com.wcnm.registry.WcnmItems;
 import com.wcnm.network.WcnmNetworking;
+import com.wcnm.world.UnderworldAmbience;
 import com.wcnm.world.WcnmSelfTest;
 import com.wcnm.world.WcnmWorldgen;
 import net.fabricmc.api.ModInitializer;
@@ -23,8 +25,10 @@ public class WcnmMod implements ModInitializer {
 	public void onInitialize() {
 		WcnmBlocks.init();
 		WcnmItems.init();
+		WcnmEntities.init();
 		WcnmCreativeTabs.init();
 		WcnmWorldgen.init();
+		UnderworldAmbience.init();
 		WcnmNetworking.init();
 		WcnmCommands.init();
 

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "wcnm:block/guiding_lantern"
+    },
+    "hanging=true": {
+      "model": "wcnm:block/guiding_lantern_hanging"
+    }
+  }
+}

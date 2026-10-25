@@ -20,6 +20,11 @@ public class BianhuaBlock extends BushBlock {
 			|| state.is(Blocks.CRYING_OBSIDIAN)
 			|| state.is(WcnmBlocks.YIN_STONE)
 			|| state.is(WcnmBlocks.YIN_STONE_BRICKS)
-			|| state.is(WcnmBlocks.CHISELED_YIN_STONE);
+			|| state.is(WcnmBlocks.CHISELED_YIN_STONE)
+			|| state.is(WcnmBlocks.SOUL_BLOCK)
+			|| state.is(WcnmBlocks.ASHEN_SOIL)
+			|| state.is(WcnmBlocks.SOUL_GRAVEL)
+			|| state.is(WcnmBlocks.BONE_SOIL)
+			|| state.is(WcnmBlocks.BLOOD_MOSS);
 	}
 }

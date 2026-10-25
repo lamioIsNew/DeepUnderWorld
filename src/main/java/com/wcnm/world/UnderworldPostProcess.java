@@ -36,6 +36,13 @@ public final class UnderworldPostProcess {
 	private static final int RIVER_WIDTH = 11;
 
 	private static final BlockState SOUL = WcnmBlocks.SOUL_BLOCK.defaultBlockState();
+	private static final BlockState ASHEN = WcnmBlocks.ASHEN_SOIL.defaultBlockState();
+	private static final BlockState GRAVEL = WcnmBlocks.SOUL_GRAVEL.defaultBlockState();
+	private static final BlockState BONE = WcnmBlocks.BONE_SOIL.defaultBlockState();
+	private static final BlockState MOSS = WcnmBlocks.BLOOD_MOSS.defaultBlockState();
+	private static final BlockState SOUL_STONE = WcnmBlocks.SOUL_STONE.defaultBlockState();
+	private static final BlockState SOUL_GRASS = WcnmBlocks.SOUL_GRASS.defaultBlockState();
+	private static final BlockState BIANHUA = WcnmBlocks.BIANHUA.defaultBlockState();
 	private static final BlockState MAIN = WcnmBlocks.YIN_STONE.defaultBlockState();
 	private static final BlockState TRIM = WcnmBlocks.CHISELED_YIN_STONE.defaultBlockState();
 	private static final BlockState LAMP = WcnmBlocks.SOUL_LAMP.defaultBlockState();
@@ -53,6 +60,7 @@ public final class UnderworldPostProcess {
 
 		carveRivers(editor, chunk, minX, minZ, randomState, terrain);
 		carveLakes(editor, chunk, minX, minZ, randomState, terrain, seed);
+		paintSurface(editor, chunk, minX, minZ, randomState, terrain, seed);
 		buildSites(editor, chunk, minX, minZ, randomState, terrain, seed);
 		spawnPad(editor, chunk, randomState, terrain, seed);
 	}
@@ -217,6 +225,90 @@ public final class UnderworldPostProcess {
 
 		sites.sort(Comparator.comparingInt(Site::centerX).thenComparingInt(Site::centerZ));
 		return sites;
+	}
+
+	// ------------------------------------------------------------------
+	// Surface variation
+	// ------------------------------------------------------------------
+
+	/**
+	 * Paints broad soil/gravel/moss patches over the default soul-block surface and scatters
+	 * small soul grass and bianhua.  These are deterministic so neighbouring chunks agree.
+	 */
+	private static void paintSurface(ChunkEditor editor, ChunkAccess chunk, int minX, int minZ,
+									 RandomState randomState, ChunkGenerator terrain, long seed) {
+		for (int x = minX; x <= minX + 15; x++) {
+			for (int z = minZ; z <= minZ + 15; z++) {
+				int top = terrain.getBaseHeight(x, z, Heightmap.Types.WORLD_SURFACE, chunk, randomState) - 1;
+
+				if (!editor.get(x, top, z).is(WcnmBlocks.SOUL_BLOCK)) {
+					continue;
+				}
+
+				double broad = valueNoise(seed, x, z, 72.0, 0x5A17);
+				double detail = valueNoise(seed, x, z, 21.0, 0x77A3);
+				double value = broad * 0.68 + detail * 0.32;
+				BlockState surface = SOUL;
+				int depth = 1;
+
+				if (value > 0.78) {
+					surface = SOUL_STONE;
+					depth = 2;
+				} else if (value > 0.69) {
+					surface = BONE;
+				} else if (value > 0.59) {
+					surface = GRAVEL;
+					depth = 2;
+				} else if (value > 0.51) {
+					surface = SOUL;
+				} else if (value > 0.45) {
+					surface = ASHEN;
+					depth = 2;
+				} else {
+					surface = MOSS;
+				}
+
+				for (int y = top - depth + 1; y <= top; y++) {
+					editor.set(x, y, z, surface);
+				}
+
+				if (surface == SOUL_STONE || !editor.get(x, top + 1, z).isAir()) {
+					continue;
+				}
+
+				double plant = hash01(seed, x, z, 0x9EAF);
+
+				if (plant < 0.035) {
+					editor.set(x, top + 1, z, SOUL_GRASS);
+				} else if (plant > 0.9965) {
+					editor.set(x, top + 1, z, BIANHUA);
+				}
+			}
+		}
+	}
+
+	private static double valueNoise(long seed, double x, double z, double scale, int salt) {
+		double fx = x / scale;
+		double fz = z / scale;
+		int x0 = (int) Math.floor(fx);
+		int z0 = (int) Math.floor(fz);
+		double tx = smoother(fx - x0);
+		double tz = smoother(fz - z0);
+		double v00 = hash01(seed, x0, z0, salt);
+		double v10 = hash01(seed, x0 + 1, z0, salt);
+		double v01 = hash01(seed, x0, z0 + 1, salt);
+		double v11 = hash01(seed, x0 + 1, z0 + 1, salt);
+		double a = v00 + (v10 - v00) * tx;
+		double b = v01 + (v11 - v01) * tx;
+		return a + (b - a) * tz;
+	}
+
+	private static double hash01(long seed, int x, int z, int salt) {
+		return (mix(seed, x, z, salt) >>> 11) * 0x1.0p-53;
+	}
+
+	private static double smoother(double value) {
+		return value * value * (3.0 - 2.0 * value);
 	}
 
 	/** True when the meandering river band crosses this chunk. */

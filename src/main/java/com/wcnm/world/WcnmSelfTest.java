@@ -2,9 +2,11 @@ package com.wcnm.world;
 
 import com.wcnm.WcnmMod;
 import com.wcnm.registry.WcnmBlocks;
+import com.wcnm.registry.WcnmEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
@@ -67,6 +69,56 @@ public final class WcnmSelfTest {
 		}
 
 		WcnmMod.LOGGER.info("WCNM self-test: river sample at ({}, 0) waterY={}", riverX, riverWaterY);
+
+		int soul = 0;
+		int ashen = 0;
+		int gravel = 0;
+		int bone = 0;
+		int moss = 0;
+		int stone = 0;
+
+		for (int x = -24; x <= 24; x += 8) {
+			for (int z = -24; z <= 24; z += 8) {
+				level.getChunk(x >> 4, z >> 4);
+				int surfaceY = level.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.WORLD_SURFACE, x, z) - 1;
+				BlockState state = level.getBlockState(new BlockPos(x, surfaceY, z));
+
+				if (state.is(WcnmBlocks.SOUL_BLOCK)) {
+					soul++;
+				} else if (state.is(WcnmBlocks.ASHEN_SOIL)) {
+					ashen++;
+				} else if (state.is(WcnmBlocks.SOUL_GRAVEL)) {
+					gravel++;
+				} else if (state.is(WcnmBlocks.BONE_SOIL)) {
+					bone++;
+				} else if (state.is(WcnmBlocks.BLOOD_MOSS)) {
+					moss++;
+				} else if (state.is(WcnmBlocks.SOUL_STONE)) {
+					stone++;
+				}
+			}
+		}
+
+		WcnmMod.LOGGER.info("WCNM self-test: surface palette soul={} ashen={} gravel={} bone={} moss={} stone={}",
+			soul, ashen, gravel, bone, moss, stone);
+
+		if (WcnmEntities.WANDERING_SOUL.spawn(level, new BlockPos(2, UnderworldPostProcess.SPAWN_Y + 2, 2),
+			EntitySpawnReason.COMMAND) != null) {
+			WcnmMod.LOGGER.info("WCNM self-test OK: wandering_soul entity spawned");
+		} else {
+			WcnmMod.LOGGER.error("WCNM self-test FAIL: wandering_soul entity could not spawn");
+		}
+
+		if (WcnmEntities.GHOST_WISP.spawn(level, new BlockPos(-2, UnderworldPostProcess.SPAWN_Y + 2, 2),
+			EntitySpawnReason.COMMAND) != null) {
+			WcnmMod.LOGGER.info("WCNM self-test OK: ghost_wisp entity spawned");
+		} else {
+			WcnmMod.LOGGER.error("WCNM self-test FAIL: ghost_wisp entity could not spawn");
+		}
+
+		ServerLevel overworld = server.overworld();
+		BlockPos safeReturn = UnderworldTeleporter.findSafeSpawn(overworld, overworld.getRespawnData().pos());
+		WcnmMod.LOGGER.info("WCNM self-test: overworld return target {}", safeReturn);
 
 		// Development smoke test for the new lookup commands (console source has permission level 4).
 		var commandSource = server.createCommandSourceStack();

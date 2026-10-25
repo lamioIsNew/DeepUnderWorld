@@ -35,11 +35,53 @@ public final class UnderworldTeleporter {
 	public static boolean teleportOut(ServerPlayer player) {
 		ServerLevel overworld = player.level().getServer().overworld();
 		BlockPos spawn = overworld.getRespawnData().pos();
-		int y = overworld.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, spawn.getX(), spawn.getZ());
-		player.teleportTo(overworld, spawn.getX() + 0.5, y, spawn.getZ() + 0.5, Set.of(),
+		BlockPos safe = findSafeSpawn(overworld, spawn);
+		player.teleportTo(overworld, safe.getX() + 0.5, safe.getY(), safe.getZ() + 0.5, Set.of(),
 			player.getYRot(), player.getXRot(), true);
-		overworld.playSound(null, spawn, SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 0.7F, 1.1F);
+		overworld.playSound(null, safe, SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 0.7F, 1.1F);
 		return true;
+	}
+
+	static BlockPos findSafeSpawn(ServerLevel overworld, BlockPos spawn) {
+		BlockPos base = spawn;
+
+		// getHeight() returns minY for a chunk that has never been generated, so force the
+		// chunk first.  This was the cause of players being teleported into the void.
+		overworld.getChunk(base.getX() >> 4, base.getZ() >> 4);
+		int y = overworld.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, base.getX(), base.getZ());
+
+		if (y <= overworld.getMinY() + 1) {
+			// A broken/empty spawn position: fall back to the world origin.
+			base = new BlockPos(0, overworld.getMinY() + 2, 0);
+			overworld.getChunk(0, 0);
+			y = overworld.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, 0, 0);
+		}
+
+		if (y <= overworld.getMinY() + 1) {
+			// Last resort for a void world: build a small landing platform instead of dropping
+			// the player into nothing.
+			BlockPos platform = new BlockPos(0, Math.max(80, overworld.getMinY() + 16), 0);
+			overworld.getChunk(0, 0);
+
+			for (int dx = -1; dx <= 1; dx++) {
+				for (int dz = -1; dz <= 1; dz++) {
+					overworld.setBlockAndUpdate(platform.offset(dx, -1, dz),
+						WcnmBlocks.SOUL_BLOCK.defaultBlockState());
+				}
+			}
+
+			return platform;
+		}
+
+		for (int offset = 0; offset < 4; offset++) {
+			BlockPos candidate = new BlockPos(base.getX(), y + offset, base.getZ());
+
+			if (overworld.isEmptyBlock(candidate) && overworld.isEmptyBlock(candidate.above())) {
+				return candidate;
+			}
+		}
+
+		return new BlockPos(base.getX(), Math.max(y, overworld.getMinY() + 2), base.getZ());
 	}
 
 	public static boolean isInUnderworld(ServerPlayer player) {
