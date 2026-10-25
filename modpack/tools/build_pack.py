@@ -28,11 +28,11 @@ from pathlib import Path
 MC_VERSION = "26.3"
 FABRIC_LOADER = "0.20.1"
 PACK_NAME = "Deep UnderWorld"
-PACK_VERSION = "2.3.0"
+PACK_VERSION = "2.4.0"
 PACK_AUTHOR = "WCNM"
 PACK_SUMMARY = (
     "基于 Fabric 26.3 的《阴森冥界》整合包："
-    "WFC + Perlin 冥界维度、50 种随机冥筑、国风材质、前置库与性能优化。"
+    "原版噪声冥界地形、50 种随机冥筑、多样地表与生物、国内风材质、小地图、前置库与性能优化。"
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -103,6 +103,7 @@ MODS: list[Mod] = [
     Mod("gA7nKz5g", "体验", side="client", note="Sound Physics Remastered"),
     Mod("vF6qLXsA", "体验", side="client", note="Entity Model Features"),
     Mod("OOEycXyN", "体验", side="client", note="Entity Texture Features"),
+    Mod("eUEhnw8G", "体验", side="client", note="Xaero's Minimap 26.6.1（下载量最高）"),
     # ---- 光影包 ----
     Mod("Bqen1mJX", "光影", side="client", target="shaderpacks",
         note="Complementary Reimagined r5.9.3"),
@@ -415,8 +416,8 @@ def write_readme(resolved: list[dict]) -> None:
     text = f"""# Deep UnderWorld
 
 基于 **Fabric {FABRIC_LOADER} + Minecraft {MC_VERSION}** 的《阴森冥界》国风整合包。
-`{PACK_VERSION}` 已包含 WCNM 本体：一个独立的 **冥界维度**、WFC + 自研 Perlin 耦合地形、
-**50 种随机冥筑**、发光告示牌与国风材质包；同时保留完整的前置库和性能优化。
+`{PACK_VERSION}` 已包含 WCNM 本体：一个独立的 **冥界维度**、原版主世界噪声地形、
+**50 种随机冥筑**、发光告示牌、多样地表与生物、自绘材质和 Xaero's 小地图；同时保留完整的前置库和性能优化。
 
 ## 下载哪个文件？
 
@@ -463,8 +464,9 @@ def write_readme(resolved: list[dict]) -> None:
 - 共 **50 种冥筑**，由 96 格网格确定性选点，建筑脚下是灵魂块/冥石台基。
 - 每座建筑正面至少有一块 **发光告示牌**，写着「第 N 号冥筑 / 建筑名称 / 阴司 · 酆都」。
 - 地面表层为自绘的 **灵魂块**，并混合 **冥土、魂砂砾、骨壤、血苔、魂石** 多种地表纹理。
-- 地表会生成 **阴草** 与彼岸花，周围有 **游魂** 和 **鬼火** 两种漂浮实体；鬼火更小更亮。
-- 新增六种地表方块与两种自绘实体，均只使用 `wcnm` 命名空间贴图。
+- 地表会生成 **阴草** 与彼岸花，周围有 **游魂**、**鬼火** 两种漂浮实体；鬼火更小更亮。
+- 冥界还会生成敌对的 **阴兵** 与 **冥犬**，以及亮度更高、雾更远的环境光。
+- 新增六种地表方块与四种自绘实体，均只使用 `wcnm` 命名空间贴图。
 
 ## 国风材质
 
@@ -475,6 +477,11 @@ def write_readme(resolved: list[dict]) -> None:
 
 - Iris 已安装，`Complementary Reimagined r5.9.3` 已放入 `shaderpacks/`。
 - 进入游戏后：`选项 → 视频设置 → 光影包`，选择并启用；低配可以不启用。
+
+## 小地图
+
+- 已内置 **Xaero's Minimap 26.6.1**（Modrinth 小地图类下载量最高），纯客户端模组。
+- 默认按键 `Y` 打开小地图设置；`U` 创建路径点（以实际按键设置为准）。
 
 ## 已包含内容
 

@@ -116,6 +116,20 @@ public final class WcnmSelfTest {
 			WcnmMod.LOGGER.error("WCNM self-test FAIL: ghost_wisp entity could not spawn");
 		}
 
+		if (WcnmEntities.GHOST_SOLDIER.spawn(level, new BlockPos(4, UnderworldPostProcess.SPAWN_Y + 2, 2),
+			EntitySpawnReason.COMMAND) != null) {
+			WcnmMod.LOGGER.info("WCNM self-test OK: ghost_soldier entity spawned");
+		} else {
+			WcnmMod.LOGGER.error("WCNM self-test FAIL: ghost_soldier entity could not spawn");
+		}
+
+		if (WcnmEntities.UNDERWORLD_HOUND.spawn(level, new BlockPos(-4, UnderworldPostProcess.SPAWN_Y + 2, 2),
+			EntitySpawnReason.COMMAND) != null) {
+			WcnmMod.LOGGER.info("WCNM self-test OK: underworld_hound entity spawned");
+		} else {
+			WcnmMod.LOGGER.error("WCNM self-test FAIL: underworld_hound entity could not spawn");
+		}
+
 		ServerLevel overworld = server.overworld();
 		BlockPos safeReturn = UnderworldTeleporter.findSafeSpawn(overworld, overworld.getRespawnData().pos());
 		WcnmMod.LOGGER.info("WCNM self-test: overworld return target {}", safeReturn);

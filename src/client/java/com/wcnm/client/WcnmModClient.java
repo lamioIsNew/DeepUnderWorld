@@ -2,7 +2,9 @@ package com.wcnm.client;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import com.wcnm.client.render.GhostSoldierRenderer;
 import com.wcnm.client.render.GhostWispRenderer;
+import com.wcnm.client.render.UnderworldHoundRenderer;
 import com.wcnm.client.render.WanderingSoulRenderer;
 import com.wcnm.registry.WcnmEntities;
 
@@ -13,5 +15,7 @@ public class WcnmModClient implements ClientModInitializer {
 		WcnmClientNetworking.init();
 		EntityRendererRegistry.register(WcnmEntities.WANDERING_SOUL, WanderingSoulRenderer::new);
 		EntityRendererRegistry.register(WcnmEntities.GHOST_WISP, GhostWispRenderer::new);
+		EntityRendererRegistry.register(WcnmEntities.GHOST_SOLDIER, GhostSoldierRenderer::new);
+		EntityRendererRegistry.register(WcnmEntities.UNDERWORLD_HOUND, UnderworldHoundRenderer::new);
 	}
 }

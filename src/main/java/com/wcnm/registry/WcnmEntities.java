@@ -1,7 +1,9 @@
 package com.wcnm.registry;
 
 import com.wcnm.WcnmMod;
+import com.wcnm.entity.GhostSoldier;
 import com.wcnm.entity.GhostWisp;
+import com.wcnm.entity.UnderworldHound;
 import com.wcnm.entity.WanderingSoul;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.core.Registry;
@@ -29,12 +31,30 @@ public final class WcnmEntities {
 			.noLootTable()
 	);
 
+	public static final EntityType<GhostSoldier> GHOST_SOLDIER = register(
+		"ghost_soldier",
+		EntityType.Builder.of(GhostSoldier::new, MobCategory.MONSTER)
+			.sized(0.6F, 1.9F)
+			.clientTrackingRange(10)
+			.noLootTable()
+	);
+
+	public static final EntityType<UnderworldHound> UNDERWORLD_HOUND = register(
+		"underworld_hound",
+		EntityType.Builder.of(UnderworldHound::new, MobCategory.MONSTER)
+			.sized(0.7F, 0.9F)
+			.clientTrackingRange(10)
+			.noLootTable()
+	);
+
 	private WcnmEntities() {
 	}
 
 	public static void init() {
 		FabricDefaultAttributeRegistry.register(WANDERING_SOUL, WanderingSoul.createAttributes());
 		FabricDefaultAttributeRegistry.register(GHOST_WISP, GhostWisp.createAttributes());
+		FabricDefaultAttributeRegistry.register(GHOST_SOLDIER, GhostSoldier.createAttributes());
+		FabricDefaultAttributeRegistry.register(UNDERWORLD_HOUND, UnderworldHound.createAttributes());
 	}
 
 	private static <T extends Mob> EntityType<T> register(String name, EntityType.Builder<T> builder) {

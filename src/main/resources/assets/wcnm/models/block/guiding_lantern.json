@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/template_lantern",
   "textures": {
-    "lantern": "wcnm:item/guiding_lantern"
+    "lantern": "wcnm:block/guiding_lantern"
   }
 }

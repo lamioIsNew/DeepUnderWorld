@@ -17,6 +17,12 @@ soul-soil surface, and two custom ambient spirits.
   stone, plus soul grass and bianhua decorations.
 - **Ambient entities**: `wcnm:wandering_soul` (游魂) and `wcnm:ghost_wisp` (鬼火). A server-side
   spawner keeps a small population around players in the underworld.
+- **Hostile entities**: `wcnm:ghost_soldier` (阴兵) and `wcnm:underworld_hound` (冥犬) spawn
+  further away and hunt players.
+- **Brighter atmosphere**: ambient light is raised to 0.42, fog is lighter and reaches 192
+  blocks, so the surface is readable without night vision.
+- **Minimap**: Xaero's Minimap 26.6.1 is bundled for the client (the most-downloaded
+  minimap on Modrinth).
 - **50 buildings** selected deterministically on a 96-block grid. Every building has a glowing
   sign reading `第 N 号冥筑 / 名称 / 阴司 · 酆都`.
 - **引魂灯**：右键空气或潜行时右键方块可在冥界/主世界之间往返；普通右键方块会放置为一盏发光的引魂灯。返回阳间前会强制生成目标区块并寻找安全落点，避免落入虚空。
@@ -63,8 +69,16 @@ All textures live under the `wcnm` namespace; no vanilla textures are modified.
 
 - `wcnm:wandering_soul` — 游魂, passive floating spirit.
 - `wcnm:ghost_wisp` — 鬼火, smaller and faster glowing wisp.
+- `wcnm:ghost_soldier` — 阴兵, hostile melee soldier.
+- `wcnm:underworld_hound` — 冥犬, fast hostile hound.
 
-Both can be summoned with `/summon wcnm:wandering_soul` or `/summon wcnm:ghost_wisp`.
+They can be summoned with `/summon wcnm:wandering_soul`, `/summon wcnm:ghost_wisp`,
+`/summon wcnm:ghost_soldier` and `/summon wcnm:underworld_hound`.
+
+## Minimap
+
+The pack includes **Xaero's Minimap 26.6.1**, the highest-download minimap on Modrinth for
+Fabric 26.3. Default key: `Y` for settings, `U` for a waypoint (check the mod's key binds).
 
 ## Build
 
@@ -95,9 +109,9 @@ python modpack\tools\deploy_to_pcl.py
 
 Or run `build_and_deploy.bat`.
 
-Current pack version: **2.3.0**. Deployment copies mods/config/shaderpacks to
-`D:\PCL\.minecraft\DeepUnderWorld-2.3.0\`, installs the launchable PCL2 version
-`D:\PCL\.minecraft\versions\Deep Under World 2.3.0\`, and places the `.mrpack` in the PCL2 root.
+Current pack version: **2.4.0**. Deployment copies mods/config/shaderpacks to
+`D:\PCL\.minecraft\DeepUnderWorld-2.4.0\`, installs the launchable PCL2 version
+`D:\PCL\.minecraft\versions\Deep Under World 2.4.0\`, and places the `.mrpack` in the PCL2 root.
 
 ## Environment
 

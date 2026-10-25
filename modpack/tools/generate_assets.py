@@ -269,6 +269,52 @@ def make_soul_grass() -> Image.Image:
     return im
 
 
+def make_ghost_soldier_texture() -> Image.Image:
+    rng = random.Random(0x501D1E)
+    base = (48, 64, 74, 255)
+    im = img(64, 32, base)
+    for _ in range(700):
+        px(im, rng.randrange(64), rng.randrange(32),
+           rnd_color(rng, [(58, 78, 86, 255), (34, 48, 56, 255), (76, 98, 104, 255), (26, 36, 44, 255)]))
+    # Armour plates and bone highlights.
+    for _ in range(26):
+        x, y = rng.randrange(64), rng.randrange(32)
+        for i in range(rng.randrange(2, 5)):
+            px(im, (x + i) % 64, y, (110, 128, 126, 255))
+            px(im, (x + i) % 64, (y + 1) % 32, (26, 34, 40, 255))
+    # Skull front: dark sockets with red pupils.
+    for x in range(8, 16):
+        for y in range(8, 16):
+            px(im, x, y, (154, 170, 158, 255))
+    for x, y in [(9, 11), (10, 11), (13, 11), (14, 11)]:
+        px(im, x, y, (20, 8, 10, 255))
+    px(im, 9, 11, (230, 42, 52, 255))
+    px(im, 14, 11, (230, 42, 52, 255))
+    for x in range(11, 14):
+        px(im, x, 14, (38, 28, 30, 255))
+    return im
+
+
+def make_underworld_hound_texture() -> Image.Image:
+    rng = random.Random(0x40D0)
+    base = (36, 28, 27, 255)
+    im = img(64, 32, base)
+    for _ in range(700):
+        px(im, rng.randrange(64), rng.randrange(32),
+           rnd_color(rng, [(48, 36, 33, 255), (25, 19, 19, 255), (60, 44, 38, 255), (18, 13, 14, 255)]))
+    # Spine ridge and ribs.
+    for x in range(16, 44):
+        px(im, x, 14, (82, 62, 52, 255))
+        if x % 4 == 0:
+            px(im, x, 15, (20, 14, 14, 255))
+    # Red eyes on the head texture region.
+    for x, y in [(5, 6), (6, 6), (9, 6), (10, 6)]:
+        px(im, x, y, (220, 32, 30, 255))
+    for x in range(5, 11):
+        px(im, x, 10, (96, 16, 18, 255))
+    return im
+
+
 def make_wandering_soul_texture() -> Image.Image:
     rng = random.Random(0x50F1)
     base = (82, 108, 112, 255)
@@ -614,11 +660,11 @@ def write_models() -> None:
     })
     write_json(ASSETS / "models" / "block" / "guiding_lantern.json", {
         "parent": "minecraft:block/template_lantern",
-        "textures": {"lantern": "wcnm:item/guiding_lantern"},
+        "textures": {"lantern": "wcnm:block/guiding_lantern"},
     })
     write_json(ASSETS / "models" / "block" / "guiding_lantern_hanging.json", {
         "parent": "minecraft:block/template_hanging_lantern",
-        "textures": {"lantern": "wcnm:item/guiding_lantern"},
+        "textures": {"lantern": "wcnm:block/guiding_lantern"},
     })
     write_json(ASSETS / "models" / "item" / "guiding_lantern.json", {
         "parent": "minecraft:item/generated",
@@ -641,6 +687,8 @@ def write_models() -> None:
         "block.wcnm.bianhua": "彼岸花",
         "entity.wcnm.wandering_soul": "游魂",
         "entity.wcnm.ghost_wisp": "鬼火",
+        "entity.wcnm.ghost_soldier": "阴兵",
+        "entity.wcnm.underworld_hound": "冥犬",
         "item.wcnm.guiding_lantern": "引魂灯",
         "item.wcnm.soul_block": "灵魂块",
         "item.wcnm.ashen_soil": "冥土",
@@ -671,6 +719,8 @@ def write_models() -> None:
         "block.wcnm.bianhua": "Bianhua",
         "entity.wcnm.wandering_soul": "Wandering Soul",
         "entity.wcnm.ghost_wisp": "Ghost Wisp",
+        "entity.wcnm.ghost_soldier": "Ghost Soldier",
+        "entity.wcnm.underworld_hound": "Underworld Hound",
         "item.wcnm.guiding_lantern": "Guiding Lantern",
         "item.wcnm.soul_block": "Soul Block",
         "item.wcnm.ashen_soil": "Ashen Soil",
@@ -725,8 +775,11 @@ def main() -> None:
     save(make_soul_lamp(), block_tex / "soul_lamp.png")
     save(make_bianhua(), block_tex / "bianhua.png")
     save(make_guiding_lantern(), item_tex / "guiding_lantern.png")
+    save(make_guiding_lantern(), block_tex / "guiding_lantern.png")
     save(make_wandering_soul_texture(), entity_tex / "wandering_soul.png")
     save(make_ghost_wisp_texture(), entity_tex / "ghost_wisp.png")
+    save(make_ghost_soldier_texture(), entity_tex / "ghost_soldier.png")
+    save(make_underworld_hound_texture(), entity_tex / "underworld_hound.png")
 
     print(f"assets  -> {ASSETS}")
 

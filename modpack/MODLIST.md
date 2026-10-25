@@ -2,8 +2,8 @@
 
 - Minecraft: 26.3
 - Fabric Loader: 0.20.1
-- 打包版本: 2.3.0
-- 文件数: 47
+- 打包版本: 2.4.0
+- 文件数: 48
 
 | 分类 | 模组 | 版本 | 文件 |
 | --- | --- | --- | --- |
@@ -53,6 +53,7 @@
 | 体验 | Sound Physics Remastered | fabric-1.5.2+26.3 | `sound-physics-remastered-fabric-1.5.2+26.3.jar` |
 | 体验 | Entity Model Features | 3.3.12-fabric-26.3 | `entity_model_features-3.3.12-26.3-fabric.jar` |
 | 体验 | Entity Texture Features | 7.2.6-fabric-26.3 | `entity_texture_features-7.2.6-26.3-fabric.jar` |
+| 体验 | Xaero's Minimap 26.6.1（下载量最高） | fabric-26.3-26.6.1 | `xaerominimap-fabric-26.3-26.6.1.jar` |
 | 光影 | Complementary Reimagined r5.9.3 | r5.9.3 | `ComplementaryReimagined_r5.9.3.zip` |
 
-总内容体积：40.3 MiB
+总内容体积：42.4 MiB

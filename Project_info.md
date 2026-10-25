@@ -14,8 +14,10 @@
 - 湖泊按 5000×5000 格稀疏生成；河流仅限 `|x|,|z| <= 1000`，边界平滑截断。
 - 地表混合灵魂块、冥土、魂砂砾、骨壤、血苔、魂石，并生成阴草与彼岸花。
 - 50 种冥筑、发光告示牌、引魂灯。
-- 实体：游魂 `wcnm:wandering_soul`、鬼火 `wcnm:ghost_wisp`。
+- 实体：游魂 `wcnm:wandering_soul`、鬼火 `wcnm:ghost_wisp`、阴兵 `wcnm:ghost_soldier`、冥犬 `wcnm:underworld_hound`。
+- 亮度：环境光 0.42，雾距 192，地表无需夜视即可看清。
 - 指令：`/wcnm tp|return|find|ls|kit|tud`，支持按半径/结构/群系定位。
+- 小地图：内置 Xaero's Minimap 26.6.1（Modrinth 小地图类下载量最高）。
 - 自定义材质全部位于 `wcnm` 命名空间，不修改原版贴图。
 
 ## 环境

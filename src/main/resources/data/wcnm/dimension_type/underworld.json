@@ -1,5 +1,5 @@
 {
-  "ambient_light": 0.08,
+  "ambient_light": 0.42,
   "attributes": {
     "minecraft:audio/ambient_sounds": {
       "mood": {
@@ -17,13 +17,15 @@
     "minecraft:gameplay/can_start_raid": false,
     "minecraft:gameplay/respawn_anchor_works": false,
     "minecraft:gameplay/water_evaporates": false,
-    "minecraft:visual/ambient_light_color": "#120810",
-    "minecraft:visual/cloud_color": "#cc101018",
+    "minecraft:visual/ambient_light_color": "#4a3a48",
+    "minecraft:visual/cloud_color": "#cc1a1420",
     "minecraft:visual/cloud_height": 192.0,
-    "minecraft:visual/fog_color": "#14060a",
-    "minecraft:visual/fog_end_distance": 128.0,
-    "minecraft:visual/fog_start_distance": 8.0,
-    "minecraft:visual/sky_color": "#05010a"
+    "minecraft:visual/fog_color": "#2a1420",
+    "minecraft:visual/fog_end_distance": 192.0,
+    "minecraft:visual/fog_start_distance": 16.0,
+    "minecraft:visual/sky_color": "#0b0712",
+    "minecraft:visual/sky_light_color": "#8fa8c8",
+    "minecraft:visual/sky_light_factor": 1.0
   },
   "coordinate_scale": 1.0,
   "has_ceiling": false,
